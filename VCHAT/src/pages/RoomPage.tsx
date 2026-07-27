@@ -71,37 +71,68 @@ export const RoomPage: React.FC = () => {
 
   return (
     <div className="min-h-screen lg:h-screen lg:max-h-screen flex flex-col pt-4 overflow-y-auto lg:overflow-hidden bg-frame">
-      <Navbar />
-      
-      {/* Room Toolbar — frame-chrome treatment */}
-      <div className="bg-frame text-cream-on-frame px-4 md:px-6 py-2.5 flex flex-wrap items-center justify-between gap-3 z-10 flex-shrink-0">
-        <div className="flex items-center gap-3">
-           <h1 className="font-headline-sm text-base md:text-lg text-cream-on-frame">{room.name}</h1>
-           <span className="font-label-mono text-[10px] md:text-xs text-cream-on-frame/50 bg-white/[0.07] px-2 py-0.5 rounded">ID: {room.id}</span>
-           
-           {/* Assigned Role Badge */}
-           <div className="flex items-center gap-2">
-              <RoleBadge role={currentUserRole} />
-           </div>
+      {/* Floating Left/Right Toolbars for Desktop (Sitting beside Navbar) */}
+      <div className="hidden lg:flex sticky top-4 z-50 w-full px-4 justify-between pointer-events-none h-0 overflow-visible">
+        {/* Left Side: Room Info */}
+        <div className="pointer-events-auto flex items-center gap-3 bg-surface border border-outline px-5 py-2 rounded-full shadow-xl h-14">
+           <h1 className="font-headline-sm text-base text-on-surface font-bold">{room.name}</h1>
+           <span className="font-label-mono text-xs text-on-surface-variant bg-surface-container-high px-2 py-1 rounded-md">ID: {room.id}</span>
+           <div className="h-4 w-px bg-outline-variant/50" />
+           <RoleBadge role={currentUserRole} />
         </div>
-        
-        <div className="flex items-center gap-2">
-          <button onClick={handleCopyLink} className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-cream-on-frame/60 hover:text-cream-on-frame hover:bg-white/[0.07] transition-colors font-label-mono text-xs">
+
+        {/* Right Side: Actions */}
+        <div className="pointer-events-auto flex items-center gap-1.5 bg-surface border border-outline p-1.5 rounded-full shadow-xl h-14">
+          <button onClick={handleCopyLink} className="flex items-center gap-1.5 px-4 py-2 rounded-full text-on-surface hover:bg-surface-container transition-colors font-label-mono text-xs font-bold">
             <span className="material-symbols-outlined text-sm">link</span>
-            <span className="hidden sm:inline">Copy Link</span>
+            <span className="hidden xl:inline">Copy Link</span>
           </button>
           
           {(currentUserRole === Role.HOST || currentUserRole === Role.MODERATOR) && (
-            <button onClick={() => setIsChangeVideoOpen(true)} className="flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-white/10 text-cream-on-frame/70 hover:text-cream-on-frame hover:bg-white/[0.07] transition-colors font-label-mono text-xs">
+            <button onClick={() => setIsChangeVideoOpen(true)} className="flex items-center gap-1.5 px-4 py-2 rounded-full text-on-surface hover:bg-surface-container transition-colors font-label-mono text-xs font-bold">
               <span className="material-symbols-outlined text-sm">movie</span>
-              <span className="hidden sm:inline">Change Video</span>
+              <span className="hidden xl:inline">Change Video</span>
             </button>
           )}
 
           {currentUserRole === Role.HOST && (
-            <button onClick={() => setIsRoleModalOpen(true)} className="flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-white/10 text-cream-on-frame/70 hover:text-cream-on-frame hover:bg-white/[0.07] transition-colors font-label-mono text-xs">
+            <button onClick={() => setIsRoleModalOpen(true)} className="flex items-center gap-1.5 px-4 py-2 rounded-full text-on-surface hover:bg-surface-container transition-colors font-label-mono text-xs font-bold">
               <span className="material-symbols-outlined text-sm">manage_accounts</span>
-              <span className="hidden sm:inline">Roles</span>
+              <span className="hidden xl:inline">Roles</span>
+            </button>
+          )}
+          
+          <Button variant="danger" onClick={() => navigate('/dashboard')} icon={<span className="material-symbols-outlined text-sm">logout</span>}>
+            <span className="hidden xl:inline">Leave</span>
+            <span className="xl:hidden">Leave</span>
+          </Button>
+        </div>
+      </div>
+
+      <Navbar />
+      
+      {/* Mobile/Tablet Room Toolbar */}
+      <div className="lg:hidden bg-surface-container border-b border-outline px-4 py-3 flex flex-wrap items-center justify-between gap-3 z-10 flex-shrink-0">
+        <div className="flex items-center gap-3">
+           <h1 className="font-headline-sm text-sm font-bold text-on-surface">{room.name}</h1>
+           <span className="font-label-mono text-[10px] text-on-surface-variant bg-surface px-2 py-0.5 rounded border border-outline">ID: {room.id}</span>
+           <RoleBadge role={currentUserRole} />
+        </div>
+        
+        <div className="flex items-center gap-2">
+          <button onClick={handleCopyLink} className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-on-surface hover:bg-surface transition-colors font-label-mono text-xs border border-transparent hover:border-outline">
+            <span className="material-symbols-outlined text-sm">link</span>
+          </button>
+          
+          {(currentUserRole === Role.HOST || currentUserRole === Role.MODERATOR) && (
+            <button onClick={() => setIsChangeVideoOpen(true)} className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-on-surface hover:bg-surface transition-colors font-label-mono text-xs border border-transparent hover:border-outline">
+              <span className="material-symbols-outlined text-sm">movie</span>
+            </button>
+          )}
+
+          {currentUserRole === Role.HOST && (
+            <button onClick={() => setIsRoleModalOpen(true)} className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-on-surface hover:bg-surface transition-colors font-label-mono text-xs border border-transparent hover:border-outline">
+              <span className="material-symbols-outlined text-sm">manage_accounts</span>
             </button>
           )}
           
@@ -115,7 +146,7 @@ export const RoomPage: React.FC = () => {
       <div className="flex-1 flex flex-col lg:flex-row bg-frame min-h-0 mx-2 lg:mx-4 mb-2 lg:mb-4 rounded-[24px] lg:rounded-[32px] overflow-hidden border border-white/10 shadow-2xl relative">
          {/* Video Area (left side) */}
          <div className="w-full lg:flex-[3] flex flex-col p-3 md:p-6 lg:min-h-0 lg:overflow-y-auto custom-scrollbar flex-shrink-0 relative">
-           <div className="w-full rounded-[24px] flex flex-col items-center justify-start bg-black/40 border border-white/5 relative p-3 md:p-6 shadow-inner backdrop-blur-md h-full">
+           <div className="w-full rounded-[24px] flex flex-col items-center justify-start bg-background relative shadow-md h-full overflow-hidden">
              <FloatingReactions reactions={reactions} onRemove={removeReaction} />
              <YouTubeWebsite
                onChangeVideoClick={() => setIsChangeVideoOpen(true)}
@@ -125,7 +156,7 @@ export const RoomPage: React.FC = () => {
          </div>
          
          {/* Sidebar (right side) */}
-         <div className="w-full lg:w-[380px] xl:w-[420px] border-t lg:border-t-0 lg:border-l border-white/10 bg-white/[0.02] backdrop-blur-xl flex flex-col p-4 md:p-6 gap-6 h-auto lg:h-full lg:min-h-0 overflow-hidden flex-shrink-0 relative shadow-[-10px_0_30px_rgba(0,0,0,0.5)]">
+         <div className="w-full lg:w-[380px] xl:w-[420px] border-t lg:border-t-0 lg:border-l border-white/10 bg-background flex flex-col p-4 md:p-6 gap-6 h-auto lg:h-full lg:min-h-0 overflow-hidden flex-shrink-0 relative">
             <div className="h-[200px] lg:h-[30%] lg:min-h-[180px] lg:max-h-[250px] flex flex-col min-h-0 flex-shrink-0">
                <ParticipantList />
             </div>

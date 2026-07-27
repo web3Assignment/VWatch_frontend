@@ -187,7 +187,7 @@ export const YouTubeWebsite: React.FC<YouTubeWebsiteProps> = ({ onChangeVideoCli
     <div className="w-full flex flex-col lg:flex-row gap-4 items-stretch">
 
       {/* ── LEFT BOX: Video + Controls ── */}
-      <div ref={videoContainerRef} className="flex-1 min-w-0 flex flex-col border border-outline-variant/30 rounded-2xl overflow-hidden bg-surface-container/40 backdrop-blur-sm shadow-xl">
+      <div ref={videoContainerRef} className="flex-1 min-w-0 flex flex-col border border-outline rounded-2xl overflow-hidden bg-surface shadow-md">
 
         {/* Video player */}
         <div className="relative w-full aspect-video bg-black flex-1 min-h-[300px]">
@@ -231,7 +231,7 @@ export const YouTubeWebsite: React.FC<YouTubeWebsiteProps> = ({ onChangeVideoCli
         <div className="h-px bg-outline-variant/30" />
 
         {/* Controls bar */}
-        <div className="px-4 py-3 flex flex-wrap items-center justify-between gap-3 bg-surface-container/60">
+        <div className="px-4 py-3 flex flex-wrap items-center justify-between gap-3 bg-surface border-t border-outline">
           <div className="flex items-center gap-2 flex-wrap">
             {isPlaying ? (
               <Button variant="primary" onClick={handleManualPause} disabled={!canControl} icon={<Pause className="w-4 h-4" />}>Pause</Button>
@@ -264,7 +264,7 @@ export const YouTubeWebsite: React.FC<YouTubeWebsiteProps> = ({ onChangeVideoCli
 
         {/* Reactions row */}
         {onSendReaction && (
-          <div className="px-4 py-3 flex items-center gap-3 bg-surface-container/60 border-t border-primary/20 shadow-[0_-4px_15px_rgba(217,134,47,0.05)] relative overflow-hidden flex-shrink-0">
+          <div className="px-4 py-3 flex items-center gap-3 bg-surface border-t border-outline relative overflow-hidden flex-shrink-0">
             <div className="absolute inset-0 bg-gradient-to-r from-primary/5 via-transparent to-primary/5 pointer-events-none" />
             <div className="flex items-center gap-1.5 text-on-surface-variant relative z-10">
               <Smile className="w-4 h-4 text-primary" />
@@ -283,10 +283,10 @@ export const YouTubeWebsite: React.FC<YouTubeWebsiteProps> = ({ onChangeVideoCli
       </div>
 
       {/* ── RIGHT BOX: YouTube Search ── */}
-      <div className="w-full lg:w-[340px] xl:w-[360px] flex-shrink-0 flex flex-col border border-outline-variant/30 rounded-2xl overflow-hidden bg-surface-container/40 backdrop-blur-sm shadow-xl">
+      <div className="w-full lg:w-[340px] xl:w-[360px] flex-shrink-0 flex flex-col border border-outline rounded-2xl overflow-hidden bg-surface shadow-md">
 
         {/* Panel header */}
-        <div className="px-4 py-3 border-b border-outline-variant/30 bg-surface-container/60 flex items-center gap-2 flex-shrink-0">
+        <div className="px-4 py-3 border-b border-outline bg-surface-container flex items-center gap-2 flex-shrink-0">
           <Clapperboard className="w-4 h-4 text-primary" />
           <span className="font-label-caps text-xs text-on-surface uppercase tracking-wider font-bold">Video Search</span>
         </div>
