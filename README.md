@@ -1,10 +1,10 @@
-# VWatch Frontend
+﻿# VWatch Frontend
 
 VWatch is a **real-time synchronized watch party platform** built with **Vite + React + TypeScript + Tailwind CSS v4**. This document covers the full frontend architecture: design system, state management, WebSocket flows, page structure, and component breakdown.
 
 ---
 
-## ?? Getting Started
+## Getting Started
 
 ```bash
 # Install dependencies
@@ -29,102 +29,102 @@ VITE_YOUTUBE_API_KEY=your_youtube_api_key
 
 ---
 
-## ?? Codebase Directory Structure
+## Codebase Directory Structure
 
 ```text
 src/
-+-- App.tsx                  # Root component (providers + router outlet)
-+-- App.css                  # Base application styles
-+-- main.tsx                 # React DOM entry point
-+-- index.css                # Tailwind v4 theme tokens & global CSS
-�
-+-- assets/                  # Image and static media assets
-�
-+-- components/              # Component layer (divided by domain)
-�   +-- dashboard/
-�   �   +-- CreateRoomModal.tsx
-�   �   +-- JoinRoomModal.tsx
-�   �   +-- RoomCard.tsx
-�   +-- hireme/              # Hire Me page section components
-�   +-- room/
-�   �   +-- ChangeVideoModal.tsx
-�   �   +-- ChatPanel.tsx
-�   �   +-- FloatingReactions.tsx
-�   �   +-- ParticipantList.tsx
-�   �   +-- PlaybackLogsModal.tsx
-�   �   +-- RoleManagementModal.tsx
-�   �   +-- SyncTelemetry.tsx
-�   �   +-- TransferHostModal.tsx
-�   �   +-- VideoPlayer.tsx
-�   +-- shared/
-�       +-- Button.tsx
-�       +-- ChatBot.tsx
-�       +-- Footer.tsx
-�       +-- GlassCard.tsx
-�       +-- Input.tsx
-�       +-- LoadingSpinner.tsx
-�       +-- Modal.tsx
-�       +-- Navbar.tsx
-�       +-- ProtectedRoute.tsx
-�       +-- RoleBadge.tsx
-�       +-- Toast.tsx
-�
-+-- config/
-�   +-- env.ts               # Environment variable config
-�
-+-- hooks/
-�   +-- useAuth.ts
-�   +-- useChat.ts
-�   +-- useParticipants.ts
-�   +-- usePlayer.ts
-�   +-- useRoom.ts
-�
-+-- pages/
-�   +-- AccountPage.tsx
-�   +-- DashboardPage.tsx
-�   +-- ExplorePage.tsx
-�   +-- HireMePage.tsx
-�   +-- LandingPage.tsx
-�   +-- LoginPage.tsx
-�   +-- NotFoundPage.tsx
-�   +-- RegisterPage.tsx
-�   +-- RoomPage.tsx
-�
-+-- router/
-�   +-- index.tsx            # React Router DOM v7 route definitions
-�
-+-- services/
-�   +-- api.client.ts
-�   +-- auth.service.ts
-�   +-- participant.service.ts
-�   +-- room.service.ts
-�   +-- socket.service.ts
-�
-+-- store/
-�   +-- useAuthStore.ts
-�   +-- useRoomStore.ts
-�   +-- useThemeStore.ts
-�
-+-- types/
-�   +-- chat.ts
-�   +-- participant.ts
-�   +-- player.ts
-�   +-- room.ts
-�   +-- user.ts
-�
-+-- utils/
-    +-- cookie.ts
-    +-- room.ts
-    +-- youtube.ts
+├── App.tsx                  # Root component (providers + router outlet)
+├── App.css                  # Base application styles
+├── main.tsx                 # React DOM entry point
+├── index.css                # Tailwind v4 theme tokens & global CSS
+│
+├── assets/                  # Image and static media assets
+│
+├── components/
+│   ├── dashboard/
+│   │   ├── CreateRoomModal.tsx
+│   │   ├── JoinRoomModal.tsx
+│   │   └── RoomCard.tsx
+│   ├── hireme/              # Hire Me page section components
+│   ├── room/
+│   │   ├── ChangeVideoModal.tsx
+│   │   ├── ChatPanel.tsx
+│   │   ├── FloatingReactions.tsx
+│   │   ├── ParticipantList.tsx
+│   │   ├── PlaybackLogsModal.tsx
+│   │   ├── RoleManagementModal.tsx
+│   │   ├── SyncTelemetry.tsx
+│   │   ├── TransferHostModal.tsx
+│   │   └── VideoPlayer.tsx
+│   └── shared/
+│       ├── Button.tsx
+│       ├── ChatBot.tsx
+│       ├── Footer.tsx
+│       ├── GlassCard.tsx
+│       ├── Input.tsx
+│       ├── LoadingSpinner.tsx
+│       ├── Modal.tsx
+│       ├── Navbar.tsx
+│       ├── ProtectedRoute.tsx
+│       ├── RoleBadge.tsx
+│       └── Toast.tsx
+│
+├── config/
+│   └── env.ts               # Environment variable config
+│
+├── hooks/
+│   ├── useAuth.ts
+│   ├── useChat.ts
+│   ├── useParticipants.ts
+│   ├── usePlayer.ts
+│   └── useRoom.ts
+│
+├── pages/
+│   ├── AccountPage.tsx
+│   ├── DashboardPage.tsx
+│   ├── ExplorePage.tsx
+│   ├── HireMePage.tsx
+│   ├── LandingPage.tsx
+│   ├── LoginPage.tsx
+│   ├── NotFoundPage.tsx
+│   ├── RegisterPage.tsx
+│   └── RoomPage.tsx
+│
+├── router/
+│   └── index.tsx            # React Router DOM v7 route definitions
+│
+├── services/
+│   ├── api.client.ts
+│   ├── auth.service.ts
+│   ├── participant.service.ts
+│   ├── room.service.ts
+│   └── socket.service.ts
+│
+├── store/
+│   ├── useAuthStore.ts
+│   ├── useRoomStore.ts
+│   └── useThemeStore.ts
+│
+├── types/
+│   ├── chat.ts
+│   ├── participant.ts
+│   ├── player.ts
+│   ├── room.ts
+│   └── user.ts
+│
+└── utils/
+    ├── cookie.ts
+    ├── room.ts
+    └── youtube.ts
 ```
 
 ---
 
-## ?? UI Design System (Fonts & Colors)
+## UI Design System (Fonts & Colors)
 
 The styling system is built on **Tailwind CSS v4** with a custom theme defined in `src/index.css`. Theme properties switch dynamically between light and dark mode via `.light` / `.dark` class tags on the `html` element.
 
-### 1. Typography
+### Typography
 
 Fonts are loaded from Google Fonts in `index.html`:
 
@@ -134,12 +134,12 @@ Fonts are loaded from Google Fonts in `index.html`:
 | **Plus Jakarta Sans** | Body text & paragraphs | `font-body-lg`, `font-body-md` |
 | **JetBrains Mono** | Tags, IDs, labels, inputs | `font-label-mono`, `font-label-caps` |
 
-### 2. Icons
+### Icons
 
-- **Material Symbols Outlined** � Loaded from Google Fonts. Used via `<span className="material-symbols-outlined">icon_name</span>`.
-- **Lucide React** � Imported per component (e.g., `Bot`, `Send`, `Play`, `Pause`, `X`, `LogOut`, `Menu`).
+- **Material Symbols Outlined** — Loaded from Google Fonts. Used via `<span className="material-symbols-outlined">icon_name</span>`.
+- **Lucide React** — Imported per component (e.g., `Bot`, `Send`, `Play`, `Pause`, `X`, `LogOut`, `Menu`).
 
-### 3. Color Tokens
+### Color Tokens
 
 All colors are defined in `src/index.css` under `:root` (Light) and `html.dark` (Dark):
 
@@ -158,26 +158,26 @@ All colors are defined in `src/index.css` under `:root` (Light) and `html.dark` 
 | `--frame` | `bg-frame` | `#0c0a09` | Dark outer page chrome |
 | `--cream-on-frame` | `text-cream-on-frame` | `#f5ede0` | Light text on dark frame |
 
-### 4. Custom CSS Utilities (`src/index.css`)
+### Custom CSS Utilities (`src/index.css`)
 
-- `.glass-card` � Glassmorphism surface with border and shadow.
-- `.luminous-border` � Gradient glowing border (Primary ? Tertiary via xor mask).
-- `.frame-chrome` � Dark outer chrome panel with rounded corners.
-- `.panel-inset` � Recessed inset panel surface.
-- `.mesh-gradient` � Radial gradient ambient glow overlay.
-- `.dot-grid` � Dot-grid background pattern.
-- `.custom-scrollbar` � Custom-styled thin scrollbar.
-- `.animate-shimmer-text` � Animated shimmer text effect (used on footer wordmark).
-- `.chatbot-dot` � Animated typing indicator dots for the chatbot.
-- `.chatbot-markdown` � Styled markdown rendering inside chatbot assistant bubbles.
+- `.glass-card` — Glassmorphism surface with border and shadow.
+- `.luminous-border` — Gradient glowing border (Primary to Tertiary via xor mask).
+- `.frame-chrome` — Dark outer chrome panel with rounded corners.
+- `.panel-inset` — Recessed inset panel surface.
+- `.mesh-gradient` — Radial gradient ambient glow overlay.
+- `.dot-grid` — Dot-grid background pattern.
+- `.custom-scrollbar` — Custom-styled thin scrollbar.
+- `.animate-shimmer-text` — Animated shimmer text effect (used on footer wordmark).
+- `.chatbot-dot` — Animated typing indicator dots for the chatbot.
+- `.chatbot-markdown` — Styled markdown rendering inside chatbot assistant bubbles.
 
 ---
 
-## ?? State Management & WebSocket Architecture
+## State Management & WebSocket Architecture
 
 VWatch uses three **Zustand** stores (`src/store/`) exposed through unified hooks (`src/hooks/`).
 
-### 1. `useAuthStore` ? `useAuth`
+### 1. `useAuthStore` -> `useAuth`
 Manages user sessions, JWT tokens, and profile metadata.
 - **State**: `user`, `isLoading`
 - **Actions**: `login(payload)`, `register(payload)`, `logout()`, `checkAuth()`
@@ -187,16 +187,16 @@ Manages light/dark theme toggle state.
 - **State**: `theme` (`'light' | 'dark'`)
 - **Actions**: `toggleTheme()`
 
-### 3. `useRoomStore` ? `useRoom`, `usePlayer`, `useParticipants`, `useChat`
+### 3. `useRoomStore` -> `useRoom`, `usePlayer`, `useParticipants`, `useChat`
 Connects and coordinates all WebSocket events via `socket.service.ts`.
 
 **State properties:**
-- `room` � Active room metadata (ID, name, host ID).
-- `participants` � Sorted participant list.
-- `selfId` � Current client's user ID.
-- `messages` � Chat message feed (user + system messages).
-- `playerState` � Live YouTube player state (`videoId`, `state`, `currentTime`, `timestamp`, `updatedBy`).
-- `reactions` � Active floating emoji reactions.
+- `room` — Active room metadata (ID, name, host ID).
+- `participants` — Sorted participant list.
+- `selfId` — Current client's user ID.
+- `messages` — Chat message feed (user + system messages).
+- `playerState` — Live YouTube player state (`videoId`, `state`, `currentTime`, `timestamp`, `updatedBy`).
+- `reactions` — Active floating emoji reactions.
 
 **Incoming Socket Events:**
 
@@ -223,16 +223,16 @@ Connects and coordinates all WebSocket events via `socket.service.ts`.
 
 ---
 
-## ?? Pages
+## Pages
 
 ### 1. Landing Page (`LandingPage.tsx`)
 Cinematic welcome screen with:
 - Dark outer frame chrome layout with inverted-corner cutouts for logo and nav.
-- **"Enter the Platform"** pill CTA ? `/dashboard` (always).
-- **"Start a room"** ? `/dashboard` if logged in, else `/register`.
+- **"Enter the Platform"** pill CTA — navigates to `/dashboard` (always).
+- **"Start a room"** — navigates to `/dashboard` if logged in, else `/register`.
 - Animated 3D video demo card with image carousel and floating chat reactions.
 - Crazy Mode toggle (bottom-right corner) that increases card animation intensity.
-- `Footer.tsx` with **"Get Started Free"** ? `/dashboard` if logged in, else `/register`.
+- `Footer.tsx` with **"Get Started Free"** — navigates to `/dashboard` if logged in, else `/register`.
 
 ### 2. Login (`LoginPage.tsx`) & Register (`RegisterPage.tsx`)
 - Form-based auth using shared `Input.tsx`.
@@ -266,7 +266,7 @@ Cinematic welcome screen with:
 
 ---
 
-## ?? Watch Party Room Page (`RoomPage.tsx`)
+## Watch Party Room Page (`RoomPage.tsx`)
 
 ```text
 +--------------------------------------------------------------+
@@ -288,23 +288,23 @@ Cinematic welcome screen with:
 
 ### Room Toolbar
 - Displays room name, room ID, and user's `RoleBadge` (`HOST` | `MODERATOR` | `PARTICIPANT` | `VIEWER`).
-- **Copy Link** � Copies room URL to clipboard with a toast notification.
-- **Change Video** � Visible to Hosts/Moderators. Opens `ChangeVideoModal.tsx`.
-- **Roles** � Visible to Hosts. Opens `RoleManagementModal.tsx`.
-- **Leave** � Disconnects WebSocket and redirects to `/dashboard`.
+- **Copy Link** — Copies room URL to clipboard with a toast notification.
+- **Change Video** — Visible to Hosts/Moderators. Opens `ChangeVideoModal.tsx`.
+- **Roles** — Visible to Hosts. Opens `RoleManagementModal.tsx`.
+- **Leave** — Disconnects WebSocket and redirects to `/dashboard`.
 
 ### Video Sync Area (`VideoPlayer.tsx`)
 - Embeds the `react-youtube` player.
-- **Playback Blocker Overlay** � An invisible `<div>` over the player prevents Viewers/Participants from clicking the player when `!canControl`.
-- **Control Panel** � Play/Pause, -10s, +10s, Mute/Unmute. Enabled only for Hosts/Mods.
-- **Floating Reactions** (`FloatingReactions.tsx`) � Emoji rises up the screen on reaction.
-- **Emoji Action Bar** � ?? ?? ?? ?? ?? ?? � triggers `sendEmojiReaction()`.
-- **YouTube Search Sidebar** � Tabs (Home, Trending, Subscriptions, Library), search input, results list. Video selection calls `changeVideo(videoId)` � only if `canControl`.
+- **Playback Blocker Overlay** — An invisible div over the player prevents Viewers/Participants from clicking the player when `!canControl`.
+- **Control Panel** — Play/Pause, -10s, +10s, Mute/Unmute. Enabled only for Hosts/Mods.
+- **Floating Reactions** (`FloatingReactions.tsx`) — Emoji rises up the screen on reaction.
+- **Emoji Action Bar** — Clicking an emoji triggers `sendEmojiReaction()`.
+- **YouTube Search Sidebar** — Tabs (Home, Trending, Subscriptions, Library), search input, results list. Video selection calls `changeVideo(videoId)` — only if `canControl`.
 
 ### Participant List (`ParticipantList.tsx`)
 - Sorted by authority: `HOST` > `MODERATOR` > `PARTICIPANT` > `VIEWER`.
 - Avatar shows first letter of username + role badge.
-- **Host Action Menu** (three-dot icon) � Assign role or remove participant.
+- **Host Action Menu** (three-dot icon) — Assign role or remove participant.
 
 ### Live Chat Panel (`ChatPanel.tsx`)
 - Scrollable message feed with auto-scroll on new messages.
@@ -318,34 +318,34 @@ Cinematic welcome screen with:
 
 ---
 
-## ?? AI Chatbot (`ChatBot.tsx`)
+## AI Chatbot (`ChatBot.tsx`)
 
 A floating chatbot assistant available on all pages:
-- **Bot button** (bottom-right, fixed) � bounces when closed to draw attention.
-- Opens a full chat panel (full-screen on mobile, `360�520px` popup on desktop).
+- **Bot button** (bottom-right, fixed) — bounces when closed to draw attention.
+- Opens a full chat panel (full-screen on mobile, 360x520px popup on desktop).
 - Sends messages to `/api/v1/chat` with conversation history for context.
 - Supports Markdown rendering in assistant replies.
 - Clear conversation button in the header.
 
 ---
 
-## ?? Routing (`router/index.tsx`)
+## Routing (`router/index.tsx`)
 
 | Path | Component | Protected |
 | :--- | :--- | :--- |
 | `/` | `LandingPage` | No |
 | `/login` | `LoginPage` | No |
 | `/register` | `RegisterPage` | No |
-| `/dashboard` | `DashboardPage` | ? Yes |
-| `/room/:roomId` | `RoomPage` | ? Yes |
-| `/explore` | `ExplorePage` | ? Yes |
-| `/account` | `AccountPage` | ? Yes |
+| `/dashboard` | `DashboardPage` | Yes |
+| `/room/:roomId` | `RoomPage` | Yes |
+| `/explore` | `ExplorePage` | Yes |
+| `/account` | `AccountPage` | Yes |
 | `/hire-me` | `HireMePage` | No |
 | `*` | `NotFoundPage` | No |
 
 ---
 
-## ?? Tech Stack
+## Tech Stack
 
 | Technology | Purpose |
 | :--- | :--- |

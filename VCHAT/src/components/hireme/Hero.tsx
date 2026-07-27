@@ -279,10 +279,10 @@ export const Hero: React.FC = () => {
               isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
             }`}
           >
-            <SocialIcon href="https://github.com/saurabh-srivastav" label="GitHub">
+            <SocialIcon href="https://github.com/Saurabh12325" label="GitHub">
               <GithubIcon className="w-5 h-5" />
             </SocialIcon>
-            <SocialIcon href="https://linkedin.com/in/saurabh-srivastav" label="LinkedIn">
+            <SocialIcon href="https://www.linkedin.com/in/saurabh-srivastav-ab7712285/" label="LinkedIn">
               <LinkedinIcon className="w-5 h-5" />
             </SocialIcon>
             <SocialIcon href="https://codechef.com/users/saurabh_srivastav" label="CodeChef">
