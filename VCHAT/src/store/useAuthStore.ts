@@ -8,6 +8,7 @@ interface AuthState {
   user: User | null;
   isLoading: boolean;
   login: (payload: LoginPayload) => Promise<void>;
+  sendOtp: (emailAddress: string) => Promise<void>;
   register: (payload: RegisterPayload) => Promise<void>;
   logout: () => void;
   checkAuth: () => Promise<void>;
@@ -29,6 +30,10 @@ export const useAuthStore = create<AuthState>()(
           localStorage.setItem('vwatch-user', JSON.stringify(res.user));
           set({ user: res.user });
         }
+      },
+
+      sendOtp: async (emailAddress: string) => {
+        await authService.sendOtp(emailAddress);
       },
       
       register: async (payload: RegisterPayload) => {

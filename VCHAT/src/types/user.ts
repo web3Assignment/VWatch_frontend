@@ -35,4 +35,5 @@ export interface RegisterPayload {
   username: string;
   emailAddress: string;
   password?: string;
+  otp: string;
 }

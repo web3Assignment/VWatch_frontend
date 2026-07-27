@@ -27,7 +27,7 @@ export const CreateRoomModal: React.FC<CreateRoomModalProps> = ({ isOpen, onClos
       const room = await roomService.createRoom({ 
         title: name.trim(), 
         name: name.trim(), 
-        initialVideoId: 'dQw4w9WgXcQ',
+        initialVideoId: '8vnrqEudzWQ',
         isPrivate 
       });
       

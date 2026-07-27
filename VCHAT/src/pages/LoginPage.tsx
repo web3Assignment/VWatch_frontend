@@ -86,6 +86,7 @@ export const LoginPage: React.FC = () => {
              </p>
           </div>
         </GlassCard>
+      </main>
       </div>
     </div>
   );

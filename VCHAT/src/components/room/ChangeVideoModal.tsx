@@ -37,7 +37,7 @@ export const ChangeVideoModal: React.FC<ChangeVideoModalProps> = ({ isOpen, onCl
         <Input
           label="YOUTUBE URL OR VIDEO ID"
           icon="link"
-          placeholder="e.g. https://www.youtube.com/watch?v=dQw4w9WgXcQ or dQw4w9WgXcQ"
+          placeholder="e.g. https://www.youtube.com/watch?v=8vnrqEudzWQ or 8vnrqEudzWQ"
           value={url}
           onChange={(e) => {
             setUrl(e.target.value);

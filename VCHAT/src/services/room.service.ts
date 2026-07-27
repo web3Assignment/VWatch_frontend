@@ -13,7 +13,7 @@ class RoomService {
       createdAt: new Date().toISOString(),
       isPrivate: false,
       participantCount: 12,
-      initialVideoId: 'dQw4w9WgXcQ',
+      initialVideoId: '8vnrqEudzWQ',
     },
   };
 

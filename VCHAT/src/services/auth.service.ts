@@ -18,8 +18,11 @@ class AuthService {
     return { token: token || '', user };
   }
 
+  async sendOtp(emailAddress: string): Promise<void> {
+    await apiClient.post('/auth/send-otp', { emailAddress });
+  }
+
   async register(payload: RegisterPayload): Promise<AuthResponse> {
-    // Only send signup request to backend, do not set token or login state
     const res = await apiClient.post<RawAuthResponse>('/auth/signup', payload);
     const user = res.user || res.data?.user || {
       id: res.id || res.data?.id || 'u-' + Date.now(),

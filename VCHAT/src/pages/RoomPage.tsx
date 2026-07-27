@@ -71,18 +71,22 @@ export const RoomPage: React.FC = () => {
 
   return (
     <div className="min-h-screen lg:h-screen lg:max-h-screen flex flex-col pt-4 overflow-y-auto lg:overflow-hidden bg-frame">
-      {/* Floating Left/Right Toolbars for Desktop (Sitting beside Navbar) */}
-      <div className="hidden lg:flex sticky top-4 z-50 w-full px-4 justify-between pointer-events-none h-0 overflow-visible">
+      {/* Desktop Header Row: Left Room Info | Center Navbar | Right Actions */}
+      <div className="hidden lg:grid grid-cols-[auto_1fr_auto] items-center gap-4 sticky top-4 z-50 px-4 w-full mb-6">
         {/* Left Side: Room Info */}
-        <div className="pointer-events-auto flex items-center gap-3 bg-surface border border-outline px-5 py-2 rounded-full shadow-xl h-14">
-           <h1 className="font-headline-sm text-base text-on-surface font-bold">{room.name}</h1>
-           <span className="font-label-mono text-xs text-on-surface-variant bg-surface-container-high px-2 py-1 rounded-md">ID: {room.id}</span>
+        <div className="justify-self-start flex items-center gap-3 bg-surface/95 backdrop-blur-md border-2 border-black/20 dark:border-primary/50 px-5 py-2 rounded-full shadow-xl h-14">
+           <h1 className="font-headline-sm text-base text-on-surface font-bold truncate max-w-[140px] xl:max-w-[180px]" title={room.name}>{room.name}</h1>
            <div className="h-4 w-px bg-outline-variant/50" />
            <RoleBadge role={currentUserRole} />
         </div>
 
+        {/* Center: Compact Navbar */}
+        <div className="justify-self-center">
+          <Navbar variant="compact" />
+        </div>
+
         {/* Right Side: Actions */}
-        <div className="pointer-events-auto flex items-center gap-1.5 bg-surface border border-outline p-1.5 rounded-full shadow-xl h-14">
+        <div className="justify-self-end flex items-center gap-1.5 bg-surface/95 backdrop-blur-md border-2 border-black/20 dark:border-primary/50 p-1.5 rounded-full shadow-xl h-14">
           <button onClick={handleCopyLink} className="flex items-center gap-1.5 px-4 py-2 rounded-full text-on-surface hover:bg-surface-container transition-colors font-label-mono text-xs font-bold">
             <span className="material-symbols-outlined text-sm">link</span>
             <span className="hidden xl:inline">Copy Link</span>
@@ -94,13 +98,6 @@ export const RoomPage: React.FC = () => {
               <span className="hidden xl:inline">Change Video</span>
             </button>
           )}
-
-          {currentUserRole === Role.HOST && (
-            <button onClick={() => setIsRoleModalOpen(true)} className="flex items-center gap-1.5 px-4 py-2 rounded-full text-on-surface hover:bg-surface-container transition-colors font-label-mono text-xs font-bold">
-              <span className="material-symbols-outlined text-sm">manage_accounts</span>
-              <span className="hidden xl:inline">Roles</span>
-            </button>
-          )}
           
           <Button variant="danger" onClick={() => navigate('/dashboard')} icon={<span className="material-symbols-outlined text-sm">logout</span>}>
             <span className="hidden xl:inline">Leave</span>
@@ -109,13 +106,15 @@ export const RoomPage: React.FC = () => {
         </div>
       </div>
 
-      <Navbar />
+      {/* Mobile/Tablet Navbar & Toolbar */}
+      <div className="lg:hidden">
+        <Navbar />
+      </div>
       
       {/* Mobile/Tablet Room Toolbar */}
       <div className="lg:hidden bg-surface-container border-b border-outline px-4 py-3 flex flex-wrap items-center justify-between gap-3 z-10 flex-shrink-0">
         <div className="flex items-center gap-3">
-           <h1 className="font-headline-sm text-sm font-bold text-on-surface">{room.name}</h1>
-           <span className="font-label-mono text-[10px] text-on-surface-variant bg-surface px-2 py-0.5 rounded border border-outline">ID: {room.id}</span>
+           <h1 className="font-headline-sm text-sm font-bold text-on-surface truncate max-w-[130px] sm:max-w-[200px]" title={room.name}>{room.name}</h1>
            <RoleBadge role={currentUserRole} />
         </div>
         
@@ -129,12 +128,6 @@ export const RoomPage: React.FC = () => {
               <span className="material-symbols-outlined text-sm">movie</span>
             </button>
           )}
-
-          {currentUserRole === Role.HOST && (
-            <button onClick={() => setIsRoleModalOpen(true)} className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-on-surface hover:bg-surface transition-colors font-label-mono text-xs border border-transparent hover:border-outline">
-              <span className="material-symbols-outlined text-sm">manage_accounts</span>
-            </button>
-          )}
           
           <Button variant="danger" onClick={() => navigate('/dashboard')} icon={<span className="material-symbols-outlined text-sm">logout</span>}>
             Leave
@@ -143,20 +136,18 @@ export const RoomPage: React.FC = () => {
       </div>
 
       {/* Main Room Layout */}
-      <div className="flex-1 flex flex-col lg:flex-row bg-frame min-h-0 mx-2 lg:mx-4 mb-2 lg:mb-4 rounded-[24px] lg:rounded-[32px] overflow-hidden border border-white/10 shadow-2xl relative">
+      <div className="flex-1 flex flex-col lg:flex-row bg-background min-h-0 mx-2 lg:mx-4 mb-2 lg:mb-4 rounded-[24px] lg:rounded-[32px] overflow-hidden shadow-2xl relative border border-outline">
          {/* Video Area (left side) */}
-         <div className="w-full lg:flex-[3] flex flex-col p-3 md:p-6 lg:min-h-0 lg:overflow-y-auto custom-scrollbar flex-shrink-0 relative">
-           <div className="w-full rounded-[24px] flex flex-col items-center justify-start bg-background relative shadow-md h-full overflow-hidden">
-             <FloatingReactions reactions={reactions} onRemove={removeReaction} />
-             <YouTubeWebsite
-               onChangeVideoClick={() => setIsChangeVideoOpen(true)}
-               onSendReaction={sendEmojiReaction}
-             />
-           </div>
+         <div className="w-full lg:flex-[3] flex flex-col p-3 md:p-4 lg:min-h-0 lg:overflow-y-auto custom-scrollbar relative">
+           <FloatingReactions reactions={reactions} onRemove={removeReaction} />
+           <YouTubeWebsite
+             onChangeVideoClick={() => setIsChangeVideoOpen(true)}
+             onSendReaction={sendEmojiReaction}
+           />
          </div>
          
          {/* Sidebar (right side) */}
-         <div className="w-full lg:w-[380px] xl:w-[420px] border-t lg:border-t-0 lg:border-l border-white/10 bg-background flex flex-col p-4 md:p-6 gap-6 h-auto lg:h-full lg:min-h-0 overflow-hidden flex-shrink-0 relative">
+         <div className="w-full lg:w-[380px] xl:w-[420px] border-t lg:border-t-0 lg:border-l border-outline bg-background flex flex-col p-4 md:p-6 gap-6 h-auto lg:h-full lg:min-h-0 overflow-hidden flex-shrink-0 relative">
             <div className="h-[200px] lg:h-[30%] lg:min-h-[180px] lg:max-h-[250px] flex flex-col min-h-0 flex-shrink-0">
                <ParticipantList />
             </div>

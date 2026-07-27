@@ -22,7 +22,7 @@ export const Button: React.FC<ButtonProps> = ({
     ghost: 'hover:bg-surface-container-high rounded-xl px-4 py-2 text-on-surface',
     danger: 'bg-error/10 hover:bg-error/20 text-error border border-error/20 rounded-full px-4 py-2',
     icon: 'p-2 rounded-full hover:bg-surface-container-high text-on-surface-variant hover:text-primary',
-    outline: 'border border-outline hover:border-primary/40 text-on-surface hover:bg-surface-container-high rounded-full px-6 py-2.5',
+    outline: 'border-2 border-black/20 dark:border-primary/50 text-on-surface hover:bg-primary hover:text-black dark:hover:bg-primary dark:hover:text-black rounded-full px-6 py-2.5 transition-colors shadow-xs',
   };
 
   return (

@@ -6,7 +6,7 @@ import { Button } from './Button';
 import { Sun, Moon, Menu, LogOut, LogIn, UserPlus, X } from 'lucide-react';
 
 interface NavbarProps {
-  variant?: 'default' | 'onDark';
+  variant?: 'default' | 'onDark' | 'compact';
 }
 
 export const Navbar: React.FC<NavbarProps> = ({ variant = 'default' }) => {
@@ -25,9 +25,57 @@ export const Navbar: React.FC<NavbarProps> = ({ variant = 'default' }) => {
   const navLinks = [
     { name: 'Dashboard', path: '/dashboard' },
     { name: 'Explore', path: '/explore' },
-    { name: 'Premium', path: '/premium' },
-    { name: 'Showcase', path: '/showcase' },
+    
   ];
+
+  // ── compact variant: for room header row ──
+  if (variant === 'compact') {
+    return (
+      <header className="bg-surface/95 backdrop-blur-md border-2 border-black/20 dark:border-primary/50 shadow-xl h-14 rounded-full flex items-center justify-between px-5 gap-4 relative">
+        <Link to="/" className="font-display-lg text-[18px] text-on-surface tracking-tight hover:opacity-80 transition-opacity flex items-center gap-2">
+          <img src="/favicon.svg" alt="VWatch" className="w-6 h-6 rounded-md shadow-sm" />
+          <span className="hidden sm:inline font-bold">VWatch</span>
+        </Link>
+
+        <nav className="flex items-center gap-1">
+          {navLinks.map((link) => {
+            const isActive = location.pathname === link.path;
+            return (
+              <Link
+                key={link.path}
+                to={link.path}
+                className={`px-3 py-1.5 rounded-full font-label-mono text-xs transition-all duration-200 ${
+                  isActive
+                    ? 'bg-surface-container-high text-on-surface font-bold border border-outline/50 shadow-sm'
+                    : 'text-on-surface-variant font-medium hover:text-on-surface hover:bg-surface-container-low'
+                }`}
+              >
+                {link.name}
+              </Link>
+            );
+          })}
+          <Link
+            to="/hire-me"
+            className={`px-3 py-1.5 rounded-full font-label-mono text-xs font-bold transition-all duration-200 ${
+              location.pathname === '/hire-me'
+                ? 'bg-primary text-on-primary shadow-md'
+                : 'bg-primary text-on-primary hover:brightness-110 shadow-sm'
+            }`}
+          >
+            Hire Me
+          </Link>
+        </nav>
+
+        <button 
+          onClick={toggleTheme}
+          className="p-2 hover:bg-surface-container-low rounded-full transition-colors text-on-surface-variant hover:text-on-surface flex items-center justify-center border border-transparent hover:border-outline/50"
+          title="Toggle Theme"
+        >
+          {theme === 'dark' ? <Sun className="w-4 h-4 text-primary" /> : <Moon className="w-4 h-4" />}
+        </button>
+      </header>
+    );
+  }
 
   // ── onDark variant: pill-nav on black frame for landing hero ──
   if (variant === 'onDark') {
@@ -35,12 +83,12 @@ export const Navbar: React.FC<NavbarProps> = ({ variant = 'default' }) => {
       <nav className="flex items-center justify-between w-full">
         {/* Logo */}
         <Link to="/" className="font-display-lg text-[22px] tracking-tight text-cream-on-frame flex items-center gap-2.5 hover:opacity-80 transition-opacity">
-          <span className="w-7 h-7 rounded-lg bg-primary flex items-center justify-center text-on-primary font-bold text-sm">V</span>
+          <img src="/favicon.svg" alt="VWatch" className="w-7 h-7 rounded-lg shadow-sm" />
           VWATCH
         </Link>
 
         {/* Center pill with nav links */}
-        <div className="hidden md:flex items-center bg-[var(--cream-on-frame)] rounded-full px-1.5 py-1">
+        <div className="hidden md:flex items-center bg-[var(--cream-on-frame)] rounded-full px-1.5 py-1 border-2 border-black/20 dark:border-primary/40 shadow-md">
           {navLinks.map((link) => {
             const isActive = location.pathname === link.path;
             return (
@@ -57,6 +105,12 @@ export const Navbar: React.FC<NavbarProps> = ({ variant = 'default' }) => {
               </Link>
             );
           })}
+          <Link
+            to="/hire-me"
+            className="px-4 py-1.5 rounded-full font-label-mono text-[11px] font-bold bg-primary text-on-primary hover:brightness-110 transition-all shadow-sm"
+          >
+            Hire Me
+          </Link>
         </div>
 
         {/* Right side: theme toggle + CTA */}
@@ -109,6 +163,13 @@ export const Navbar: React.FC<NavbarProps> = ({ variant = 'default' }) => {
                 {link.name}
               </Link>
             ))}
+            <Link
+              to="/hire-me"
+              className="p-3 rounded-xl font-label-mono text-sm font-bold bg-primary text-on-primary text-center hover:brightness-110 transition-all"
+              onClick={() => setIsMenuOpen(false)}
+            >
+              Hire Me
+            </Link>
             {user ? (
               <button 
                 className="p-3 text-left text-error hover:bg-white/5 rounded-xl font-label-mono text-sm mt-2 flex items-center gap-2" 
@@ -135,12 +196,12 @@ export const Navbar: React.FC<NavbarProps> = ({ variant = 'default' }) => {
   // ── Default variant: floating capsule top bar for all other pages ──
   return (
     <div className="sticky top-4 z-50 px-4 w-full flex justify-center pointer-events-none mb-6">
-      <header className="pointer-events-auto bg-surface/95 backdrop-blur-md border border-outline shadow-xl h-14 rounded-full flex items-center justify-between px-4 sm:px-6 w-full max-w-5xl relative">
+      <header className="pointer-events-auto bg-surface/95 backdrop-blur-md border-2 border-black/20 dark:border-primary/50 shadow-xl h-14 rounded-full flex items-center justify-between px-4 sm:px-6 w-full max-w-xl lg:max-w-2xl relative">
         <div className="flex items-center gap-8">
           <Link to="/" className="font-display-lg text-[20px] text-on-surface tracking-tight hover:opacity-80 transition-opacity flex items-center gap-2">
-            <span className="w-6 h-6 rounded-md bg-primary flex items-center justify-center text-on-primary font-bold text-xs shadow-sm">V</span>
-            <span className="hidden sm:inline">VWatch</span>
-          </Link>
+          <img src="/favicon.svg" alt="VWatch" className="w-6 h-6 rounded-md shadow-sm" />
+          <span className="hidden sm:inline">VWatch</span>
+        </Link>
 
           <nav className="hidden md:flex items-center gap-1">
             {navLinks.map((link) => {
@@ -159,6 +220,16 @@ export const Navbar: React.FC<NavbarProps> = ({ variant = 'default' }) => {
                 </Link>
               );
             })}
+            <Link
+              to="/hire-me"
+              className={`px-3 py-1.5 rounded-full font-label-mono text-xs font-bold transition-all duration-200 ${
+                location.pathname === '/hire-me'
+                  ? 'bg-primary text-on-primary shadow-md'
+                  : 'bg-primary text-on-primary hover:brightness-110 shadow-sm'
+              }`}
+            >
+              Hire Me
+            </Link>
           </nav>
         </div>
 
@@ -216,6 +287,13 @@ export const Navbar: React.FC<NavbarProps> = ({ variant = 'default' }) => {
                 {link.name}
               </Link>
             ))}
+            <Link
+              to="/hire-me"
+              className="px-4 py-3 rounded-2xl font-label-mono text-sm font-bold bg-primary text-on-primary text-center shadow-md hover:brightness-105 transition-all"
+              onClick={() => setIsMenuOpen(false)}
+            >
+              Hire Me
+            </Link>
             {user ? (
               <button 
                 className="px-4 py-3 mt-2 text-left text-error hover:bg-error/5 rounded-2xl font-label-mono text-sm flex items-center gap-2 transition-colors border border-transparent hover:border-error/20" 

@@ -1,5 +1,5 @@
 export const extractYouTubeVideoId = (input: string): string => {
-  if (!input) return 'dQw4w9WgXcQ';
+  if (!input) return '8vnrqEudzWQ';
   const trimmed = input.trim();
 
   // If it's already an 11-character video ID

@@ -14,7 +14,7 @@ export const GlassCard: React.FC<GlassCardProps> = ({
   withDotGrid = false 
 }) => {
   return (
-    <div className={`glass-card rounded-[20px] overflow-hidden ${withLuminousBorder ? 'luminous-border' : ''} ${className}`}>
+    <div className={`glass-card rounded-[20px] overflow-hidden border-2 border-black/20 dark:border-primary/50 shadow-md ${withLuminousBorder ? 'luminous-border' : ''} ${className}`}>
       {withDotGrid && (
         <div className="absolute inset-0 dot-grid pointer-events-none opacity-20" />
       )}
