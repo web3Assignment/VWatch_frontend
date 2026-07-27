@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Outfit:wght@400;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap');
 
 :root, html.light {
   --bg: #f3ead9;
@@ -95,12 +96,12 @@ html.dark {
   --spacing-unit: 4px;
 
   --font-label-mono: 'JetBrains Mono', monospace;
-  --font-headline-sm: 'Geist', sans-serif;
+  --font-headline-sm: 'Outfit', sans-serif;
   --font-label-caps: 'JetBrains Mono', monospace;
-  --font-display-lg: 'Geist', sans-serif;
-  --font-body-md: 'Geist', sans-serif;
-  --font-body-lg: 'Geist', sans-serif;
-  --font-headline-md: 'Geist', sans-serif;
+  --font-display-lg: 'Outfit', sans-serif;
+  --font-body-md: 'Plus Jakarta Sans', sans-serif;
+  --font-body-lg: 'Plus Jakarta Sans', sans-serif;
+  --font-headline-md: 'Outfit', sans-serif;
 }
 
 @layer base {

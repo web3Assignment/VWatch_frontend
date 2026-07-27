@@ -70,7 +70,7 @@ export const RoomPage: React.FC = () => {
   }
 
   return (
-    <div className="min-h-screen lg:h-screen lg:max-h-screen flex flex-col pt-16 overflow-y-auto lg:overflow-hidden">
+    <div className="min-h-screen lg:h-screen lg:max-h-screen flex flex-col pt-4 overflow-y-auto lg:overflow-hidden bg-frame">
       <Navbar />
       
       {/* Room Toolbar — frame-chrome treatment */}
@@ -112,10 +112,10 @@ export const RoomPage: React.FC = () => {
       </div>
 
       {/* Main Room Layout */}
-      <div className="flex-1 flex flex-col lg:flex-row bg-background min-h-0">
+      <div className="flex-1 flex flex-col lg:flex-row bg-frame min-h-0 mx-2 lg:mx-4 mb-2 lg:mb-4 rounded-[24px] lg:rounded-[32px] overflow-hidden border border-white/10 shadow-2xl relative">
          {/* Video Area (left side) */}
-         <div className="w-full lg:flex-[3] flex flex-col p-3 md:p-6 lg:min-h-0 lg:overflow-y-auto custom-scrollbar flex-shrink-0">
-           <div className="w-full rounded-[20px] flex flex-col items-center justify-start bg-surface-container/20 border border-outline relative p-3 md:p-6">
+         <div className="w-full lg:flex-[3] flex flex-col p-3 md:p-6 lg:min-h-0 lg:overflow-y-auto custom-scrollbar flex-shrink-0 relative">
+           <div className="w-full rounded-[24px] flex flex-col items-center justify-start bg-black/40 border border-white/5 relative p-3 md:p-6 shadow-inner backdrop-blur-md h-full">
              <FloatingReactions reactions={reactions} onRemove={removeReaction} />
              <YouTubeWebsite
                onChangeVideoClick={() => setIsChangeVideoOpen(true)}
@@ -125,8 +125,8 @@ export const RoomPage: React.FC = () => {
          </div>
          
          {/* Sidebar (right side) */}
-         <div className="w-full lg:w-[380px] xl:w-[400px] border-t lg:border-t-0 lg:border-l border-outline flex flex-col p-4 md:p-6 gap-4 h-auto lg:h-full lg:min-h-0 overflow-hidden flex-shrink-0">
-            <div className="h-[200px] lg:h-[30%] lg:min-h-[160px] lg:max-h-[220px] flex flex-col min-h-0 flex-shrink-0">
+         <div className="w-full lg:w-[380px] xl:w-[420px] border-t lg:border-t-0 lg:border-l border-white/10 bg-white/[0.02] backdrop-blur-xl flex flex-col p-4 md:p-6 gap-6 h-auto lg:h-full lg:min-h-0 overflow-hidden flex-shrink-0 relative shadow-[-10px_0_30px_rgba(0,0,0,0.5)]">
+            <div className="h-[200px] lg:h-[30%] lg:min-h-[180px] lg:max-h-[250px] flex flex-col min-h-0 flex-shrink-0">
                <ParticipantList />
             </div>
             {/* Desktop Only Chat Panel */}

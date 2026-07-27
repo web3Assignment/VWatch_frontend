@@ -8,7 +8,7 @@ import { extractYouTubeVideoId } from '../../utils/youtube';
 import env from '../../config/env';
 import {
   Play, Pause, RotateCcw, RotateCw, Volume2, VolumeX,
-  Search, Home, TrendingUp, Radio, Library, Loader2, Clapperboard, Smile, Video
+  Search, Home, TrendingUp, Radio, Library, Loader2, Clapperboard, Smile, Video, Maximize
 } from 'lucide-react';
 
 interface VideoRecommendation {
@@ -32,6 +32,7 @@ export const YouTubeWebsite: React.FC<YouTubeWebsiteProps> = ({ onChangeVideoCli
 
   // ── react-youtube player ref (the actual YT player API object) ──
   const playerRef = useRef<YouTubePlayer | null>(null);
+  const videoContainerRef = useRef<HTMLDivElement>(null);
   const [isMuted, setIsMuted] = React.useState(false);
 
   // ── Search state ──
@@ -109,6 +110,18 @@ export const YouTubeWebsite: React.FC<YouTubeWebsiteProps> = ({ onChangeVideoCli
   }, [playerState.state, playerState.currentTime, playerState.videoId, activeVideoId]);
 
   // ── Manual controls ──
+  const handleFullscreen = () => {
+    if (!document.fullscreenElement) {
+      videoContainerRef.current?.requestFullscreen().catch(err => {
+        console.error(`Error attempting to enable fullscreen: ${err.message}`);
+      });
+    } else {
+      if (document.exitFullscreen) {
+        document.exitFullscreen();
+      }
+    }
+  };
+
   const handleManualPlay = () => {
     if (!canControl) return;
     const time = playerRef.current ? playerRef.current.getCurrentTime() : playerState.currentTime;
@@ -174,10 +187,10 @@ export const YouTubeWebsite: React.FC<YouTubeWebsiteProps> = ({ onChangeVideoCli
     <div className="w-full flex flex-col lg:flex-row gap-4 items-stretch">
 
       {/* ── LEFT BOX: Video + Controls ── */}
-      <div className="flex-1 min-w-0 flex flex-col border border-outline-variant/30 rounded-2xl overflow-hidden bg-surface-container/40 backdrop-blur-sm shadow-xl">
+      <div ref={videoContainerRef} className="flex-1 min-w-0 flex flex-col border border-outline-variant/30 rounded-2xl overflow-hidden bg-surface-container/40 backdrop-blur-sm shadow-xl">
 
         {/* Video player */}
-        <div className="relative w-full aspect-video bg-black">
+        <div className="relative w-full aspect-video bg-black flex-1 min-h-[300px]">
 
           {/* Status pill */}
           <div className="absolute top-3 right-3 z-20 flex items-center gap-1.5 bg-black/60 backdrop-blur-md px-3 py-1 rounded-full border border-white/10">
@@ -243,28 +256,29 @@ export const YouTubeWebsite: React.FC<YouTubeWebsiteProps> = ({ onChangeVideoCli
             {onChangeVideoClick && (
               <Button variant="outline" onClick={onChangeVideoClick} disabled={!canControl} icon={<Video className="w-4 h-4" />}>Change Video</Button>
             )}
+            <button onClick={handleFullscreen} className="flex items-center gap-1.5 px-3 py-2 rounded-xl bg-surface-container-high border border-outline-variant/30 text-on-surface hover:bg-surface-container-highest transition-colors font-label-mono text-xs" title="Toggle Fullscreen">
+              <Maximize className="w-3.5 h-3.5 text-primary" />
+            </button>
           </div>
         </div>
 
         {/* Reactions row */}
         {onSendReaction && (
-          <>
-            <div className="h-px bg-outline-variant/30" />
-            <div className="px-4 py-2.5 flex items-center gap-3 bg-surface-container/40">
-              <div className="flex items-center gap-1.5 text-on-surface-variant">
-                <Smile className="w-3.5 h-3.5" />
-                <span className="font-label-caps text-[9px] uppercase tracking-widest">React</span>
-              </div>
-              <div className="h-4 w-px bg-outline-variant/40" />
-              <div className="flex items-center gap-1">
-                {REACTION_EMOJIS.map(emoji => (
-                  <button key={emoji} onClick={() => onSendReaction(emoji)}
-                    className="text-lg hover:scale-125 active:scale-95 transition-transform p-1 rounded-lg hover:bg-surface-container-high"
-                    title={`Send ${emoji}`}>{emoji}</button>
-                ))}
-              </div>
+          <div className="px-4 py-3 flex items-center gap-3 bg-surface-container/60 border-t border-primary/20 shadow-[0_-4px_15px_rgba(217,134,47,0.05)] relative overflow-hidden flex-shrink-0">
+            <div className="absolute inset-0 bg-gradient-to-r from-primary/5 via-transparent to-primary/5 pointer-events-none" />
+            <div className="flex items-center gap-1.5 text-on-surface-variant relative z-10">
+              <Smile className="w-4 h-4 text-primary" />
+              <span className="font-label-caps text-[10px] font-bold text-primary uppercase tracking-widest">React</span>
             </div>
-          </>
+            <div className="h-4 w-px bg-outline-variant/40 relative z-10" />
+            <div className="flex items-center gap-1.5 relative z-10">
+              {REACTION_EMOJIS.map(emoji => (
+                <button key={emoji} onClick={() => onSendReaction(emoji)}
+                  className="text-xl hover:scale-125 active:scale-95 transition-transform p-1.5 rounded-xl hover:bg-surface-container-high border border-transparent hover:border-primary/30"
+                  title={`Send ${emoji}`}>{emoji}</button>
+              ))}
+            </div>
+          </div>
         )}
       </div>
 

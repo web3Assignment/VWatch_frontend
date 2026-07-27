@@ -33,14 +33,13 @@ export const Footer: React.FC = () => {
               <ul className="space-y-4 font-body-md text-sm">
                 <li><Link className="text-cream-on-frame/70 hover:text-white transition-colors" to="/explore">Explore Rooms</Link></li>
                 <li><Link className="text-cream-on-frame/70 hover:text-white transition-colors" to="/dashboard">Dashboard</Link></li>
-                <li><Link className="text-cream-on-frame/70 hover:text-white transition-colors" to="/premium">Premium Pass</Link></li>
               </ul>
             </div>
             
             <div className="space-y-6">
-              <h4 className="font-label-mono text-xs font-bold text-primary uppercase tracking-widest">Company</h4>
+              <h4 className="font-label-mono text-xs font-bold text-primary uppercase tracking-widest">Connect</h4>
               <ul className="space-y-4 font-body-md text-sm">
-                <li><Link className="text-cream-on-frame/70 hover:text-white transition-colors" to="/showcase">About Us</Link></li>
+                <li><Link className="text-cream-on-frame/70 hover:text-white transition-colors" to="/hire-me">Hire Me</Link></li>
                 <li><a className="text-cream-on-frame/70 hover:text-white transition-colors" href="#">Twitter (X)</a></li>
                 <li><a className="text-cream-on-frame/70 hover:text-white transition-colors" href="#">Discord</a></li>
               </ul>

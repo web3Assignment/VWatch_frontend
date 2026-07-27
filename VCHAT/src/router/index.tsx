@@ -8,10 +8,9 @@ import { RoomPage } from '../pages/RoomPage';
 import { NotFoundPage } from '../pages/NotFoundPage';
 import { ProtectedRoute } from '../components/shared/ProtectedRoute';
 
-import { ShowcasePage } from '../pages/ShowcasePage';
+import { HireMePage } from '../pages/HireMePage';
 import { ExplorePage } from '../pages/ExplorePage';
 import { AccountPage } from '../pages/AccountPage';
-import { PremiumPage } from '../pages/PremiumPage';
 
 export const AppRouter: React.FC = () => {
   return (
@@ -19,8 +18,7 @@ export const AppRouter: React.FC = () => {
       {/* Public Routes */}
       <Route path="/" element={<LandingPage />} />
       <Route path="/explore" element={<ExplorePage />} />
-      <Route path="/premium" element={<PremiumPage />} />
-      <Route path="/showcase" element={<ShowcasePage />} />
+      <Route path="/hire-me" element={<HireMePage />} />
       <Route path="/login" element={<LoginPage />} />
       <Route path="/register" element={<RegisterPage />} />
       

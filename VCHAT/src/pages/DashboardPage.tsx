@@ -50,7 +50,7 @@ export const DashboardPage: React.FC = () => {
       <div className="flex-1 bg-background text-on-surface rounded-[32px] overflow-hidden flex flex-col shadow-2xl relative">
       <Navbar />
       
-      <main className="flex-1 max-w-7xl mx-auto px-6 lg:px-10 py-10 w-full">
+      <main className="flex-1 max-w-full px-6 lg:px-16 2xl:px-24 py-10 w-full">
         {/* Header */}
         <header className="mb-10 flex flex-col md:flex-row md:items-end justify-between gap-6">
           <div>
