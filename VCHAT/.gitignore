@@ -26,3 +26,4 @@ dist-ssr
 # Cloned backend
 VWatch_backend/
 
+.env*
