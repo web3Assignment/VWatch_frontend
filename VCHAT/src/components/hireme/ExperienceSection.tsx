@@ -7,7 +7,7 @@ const experiences = [
     role: 'Backend Developer',
     date: 'Oct 2024 – Present',
     location: 'Ghaziabad, India',
-    siteUrl: '#',
+    siteUrl: 'https://new-cccc.vercel.app/',
     points: [
       { area: 'Backend Development', detail: 'Developed services using Spring Boot and MongoDB Atlas' },
       { area: 'Authentication', detail: 'Implemented JWT and OTP-based authentication' },
@@ -20,7 +20,7 @@ const experiences = [
     role: 'Full Stack Developer Intern',
     date: 'Nov 2025 – May 2026',
     location: 'Bangalore, India',
-    siteUrl: '#',
+    siteUrl: 'https://www.macrocosmoscreations.com/',
     points: [
       { area: 'Full Stack', detail: 'Worked on React frontend and Node.js backend with API integration' },
       { area: 'Database', detail: 'MySQL — production DB replica, migrations, queries, joins, cascading, schema updates' },
