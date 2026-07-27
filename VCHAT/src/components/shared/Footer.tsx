@@ -1,29 +1,71 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 export const Footer: React.FC = () => {
   return (
-    <footer className="w-full py-12 bg-surface-container-lowest border-t border-outline-variant/30">
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 px-10 max-w-7xl mx-auto">
-        <div className="space-y-4">
-          <span className="font-display-lg text-[24px] text-on-surface">VWatch</span>
-          <p className="font-label-mono text-[12px] text-on-surface-variant max-w-sm">
-            © 2026 VWatch. Real-time Cinematic Synchronization. Built for the next generation of shared experiences.
-          </p>
-        </div>
-        <div className="grid grid-cols-2 gap-8">
-          <div className="space-y-4">
-            <h4 className="font-label-caps text-on-surface uppercase opacity-50 text-[10px]">Platform</h4>
-            <ul className="space-y-2 font-label-mono text-[12px]">
-              <li><a className="text-on-surface-variant hover:text-primary transition-colors" href="#">Documentation</a></li>
-              <li><a className="text-on-surface-variant hover:text-primary transition-colors" href="#">API Status</a></li>
-            </ul>
+    <footer className="w-full pb-6 px-4 md:px-6 mt-10">
+      <div className="bg-frame text-cream-on-frame rounded-[32px] overflow-hidden border border-white/10 shadow-xl relative">
+        {/* Glow effect */}
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-3/4 h-32 bg-primary/10 blur-[100px] pointer-events-none" />
+
+        <div className="px-8 md:px-16 pt-16 pb-12 flex flex-col lg:flex-row justify-between gap-16 relative z-10">
+          
+          <div className="max-w-sm">
+            <Link to="/" className="text-cream-on-frame font-display-lg text-2xl flex items-center gap-3 mb-6 hover:opacity-80 transition-opacity">
+              <span className="w-8 h-8 rounded-lg bg-primary text-on-primary flex items-center justify-center font-bold text-sm shadow-[0_0_15px_var(--color-primary)]">V</span>
+              <span className="tracking-tight">VWATCH</span>
+            </Link>
+            <p className="font-label-mono text-sm text-cream-on-frame/50 leading-relaxed mb-8">
+              Real-time cinematic synchronization for watch parties. Experience flawless frame-perfect playback with your friends.
+            </p>
+            <Link
+              to="/register"
+              className="inline-flex items-center gap-2 bg-primary text-on-primary font-label-mono text-xs font-bold px-6 py-3 rounded-full hover:brightness-105 transition-all shadow-lg hover:shadow-primary/30"
+            >
+              Get Started Free
+              <span className="material-symbols-outlined text-[16px]">arrow_forward</span>
+            </Link>
           </div>
-          <div className="space-y-4">
-            <h4 className="font-label-caps text-on-surface uppercase opacity-50 text-[10px]">Social</h4>
-            <ul className="space-y-2 font-label-mono text-[12px]">
-              <li><a className="text-on-surface-variant hover:text-primary transition-colors" href="#">GitHub</a></li>
-              <li><a className="text-on-surface-variant hover:text-primary transition-colors" href="#">Discord</a></li>
-            </ul>
+
+          <div className="grid grid-cols-2 gap-12 md:gap-24">
+            <div className="space-y-6">
+              <h4 className="font-label-mono text-xs font-bold text-primary uppercase tracking-widest">Platform</h4>
+              <ul className="space-y-4 font-body-md text-sm">
+                <li><Link className="text-cream-on-frame/70 hover:text-white transition-colors" to="/explore">Explore Rooms</Link></li>
+                <li><Link className="text-cream-on-frame/70 hover:text-white transition-colors" to="/dashboard">Dashboard</Link></li>
+                <li><Link className="text-cream-on-frame/70 hover:text-white transition-colors" to="/premium">Premium Pass</Link></li>
+              </ul>
+            </div>
+            
+            <div className="space-y-6">
+              <h4 className="font-label-mono text-xs font-bold text-primary uppercase tracking-widest">Company</h4>
+              <ul className="space-y-4 font-body-md text-sm">
+                <li><Link className="text-cream-on-frame/70 hover:text-white transition-colors" to="/showcase">About Us</Link></li>
+                <li><a className="text-cream-on-frame/70 hover:text-white transition-colors" href="#">Twitter (X)</a></li>
+                <li><a className="text-cream-on-frame/70 hover:text-white transition-colors" href="#">Discord</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        {/* Giant wordmark */}
+        <div className="px-4 pb-8 flex justify-center relative z-10 overflow-hidden">
+          <h2
+            className="font-display-lg font-[900] tracking-[-0.04em] select-none leading-none text-center bg-clip-text text-transparent bg-gradient-to-r from-white/10 via-white/40 to-white/10 animate-shimmer-text"
+            style={{ fontSize: 'clamp(4.5rem, 20vw, 18rem)' }}
+          >
+            VWATCH
+          </h2>
+        </div>
+
+        {/* Bottom bar */}
+        <div className="border-t border-white/10 px-8 md:px-16 py-6 flex flex-col sm:flex-row justify-between items-center gap-4 relative z-10 bg-black/20">
+          <p className="font-label-mono text-xs text-cream-on-frame/40">
+            © 2026 VWatch Inc. All rights reserved.
+          </p>
+          <div className="flex items-center gap-6 font-label-mono text-xs">
+            <a className="text-cream-on-frame/40 hover:text-cream-on-frame transition-colors" href="#">Privacy Policy</a>
+            <a className="text-cream-on-frame/40 hover:text-cream-on-frame transition-colors" href="#">Terms of Service</a>
           </div>
         </div>
       </div>

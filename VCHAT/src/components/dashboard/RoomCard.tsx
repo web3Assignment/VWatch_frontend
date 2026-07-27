@@ -13,7 +13,7 @@ export const RoomCard: React.FC<RoomCardProps> = ({ room, onDelete }) => {
   const navigate = useNavigate();
 
   return (
-    <GlassCard className="p-6 hover:bg-surface-container-high transition-colors flex flex-col justify-between h-full">
+    <GlassCard className="p-6 hover:border-primary/30 transition-colors flex flex-col justify-between h-full">
       <div>
         <div className="flex justify-between items-start mb-4">
           <h3 className="font-headline-sm text-on-surface text-lg">{room.name}</h3>

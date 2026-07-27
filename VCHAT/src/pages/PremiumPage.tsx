@@ -7,16 +7,17 @@ import { Link } from 'react-router-dom';
 
 export const PremiumPage: React.FC = () => {
   return (
-    <div className="min-h-screen flex flex-col bg-background text-on-surface pt-20">
+    <div className="min-h-screen bg-frame p-2 md:p-4 flex flex-col font-body-md">
+      <div className="flex-1 bg-background text-on-surface rounded-[32px] overflow-hidden flex flex-col shadow-2xl relative">
       <Navbar />
 
       <main className="flex-1 max-w-7xl mx-auto px-6 lg:px-10 py-12 w-full">
         {/* Header */}
         <div className="text-center max-w-3xl mx-auto mb-16 space-y-4">
-          <span className="inline-block px-4 py-1 rounded-full bg-primary/10 text-primary font-label-caps text-xs uppercase tracking-widest border border-primary/20">
+          <span className="inline-block px-4 py-1 rounded-full bg-primary/10 text-primary font-label-caps text-[11px] uppercase tracking-[0.15em] border border-primary/20">
             VWatch Premium
           </span>
-          <h1 className="font-display-lg text-4xl lg:text-5xl text-on-surface">
+          <h1 className="font-display-lg text-4xl lg:text-5xl text-on-surface tracking-tight">
             Elevate Your Watch Party Experience
           </h1>
           <p className="font-body-lg text-on-surface-variant">
@@ -29,25 +30,25 @@ export const PremiumPage: React.FC = () => {
           {/* Free Tier */}
           <GlassCard className="p-8 flex flex-col justify-between">
             <div>
-              <span className="font-label-caps text-xs text-on-surface-variant uppercase tracking-widest">Free Tier</span>
+              <span className="font-label-caps text-[11px] text-on-surface-variant uppercase tracking-wider">Free Tier</span>
               <h3 className="font-headline-sm text-2xl text-on-surface mt-2 mb-4">Standard Party</h3>
               <p className="font-display-lg text-4xl text-on-surface mb-6">$0 <span className="text-sm font-normal text-on-surface-variant">/forever</span></p>
               
               <ul className="space-y-3 font-body-md text-sm text-on-surface-variant mb-8">
                 <li className="flex items-center gap-2">
-                  <span className="material-symbols-outlined text-primary text-sm">check</span>
+                  <span className="material-symbols-outlined text-tertiary text-sm">check</span>
                   Up to 10 participants per room
                 </li>
                 <li className="flex items-center gap-2">
-                  <span className="material-symbols-outlined text-primary text-sm">check</span>
+                  <span className="material-symbols-outlined text-tertiary text-sm">check</span>
                   720p HD Video Sync
                 </li>
                 <li className="flex items-center gap-2">
-                  <span className="material-symbols-outlined text-primary text-sm">check</span>
+                  <span className="material-symbols-outlined text-tertiary text-sm">check</span>
                   Basic Role Controls
                 </li>
                 <li className="flex items-center gap-2">
-                  <span className="material-symbols-outlined text-primary text-sm">check</span>
+                  <span className="material-symbols-outlined text-tertiary text-sm">check</span>
                   Real-time Room Chat
                 </li>
               </ul>
@@ -59,13 +60,13 @@ export const PremiumPage: React.FC = () => {
           </GlassCard>
 
           {/* Pro Tier (Featured) */}
-          <GlassCard withLuminousBorder className="p-8 flex flex-col justify-between border-primary/50 relative">
-            <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-gradient-to-r from-primary to-tertiary text-on-primary font-label-caps text-[10px] uppercase font-bold px-3 py-1 rounded-full shadow-md">
+          <GlassCard withLuminousBorder className="p-8 flex flex-col justify-between relative">
+            <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-primary text-on-primary font-label-caps text-[10px] uppercase font-bold px-3 py-1 rounded-full shadow-md">
               Most Popular
             </div>
 
             <div>
-              <span className="font-label-caps text-xs text-primary uppercase tracking-widest">Pro Pass</span>
+              <span className="font-label-caps text-[11px] text-primary uppercase tracking-wider">Pro Pass</span>
               <h3 className="font-headline-sm text-2xl text-on-surface mt-2 mb-4">Cinema Master</h3>
               <p className="font-display-lg text-4xl text-primary mb-6">$9.99 <span className="text-sm font-normal text-on-surface-variant">/month</span></p>
               
@@ -101,7 +102,7 @@ export const PremiumPage: React.FC = () => {
           {/* Enterprise / Creator Tier */}
           <GlassCard className="p-8 flex flex-col justify-between">
             <div>
-              <span className="font-label-caps text-xs text-on-surface-variant uppercase tracking-widest">Creator Tier</span>
+              <span className="font-label-caps text-[11px] text-on-surface-variant uppercase tracking-wider">Creator Tier</span>
               <h3 className="font-headline-sm text-2xl text-on-surface mt-2 mb-4">Event Streamer</h3>
               <p className="font-display-lg text-4xl text-on-surface mb-6">$29.99 <span className="text-sm font-normal text-on-surface-variant">/month</span></p>
               
@@ -132,7 +133,7 @@ export const PremiumPage: React.FC = () => {
         </div>
       </main>
 
-      <Footer />
+      </div>
     </div>
   );
 };

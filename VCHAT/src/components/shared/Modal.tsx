@@ -32,19 +32,19 @@ export const Modal: React.FC<ModalProps> = ({
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={onClose}
-            className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50"
+            className="fixed inset-0 bg-black/50 z-50"
           />
           <div className="fixed inset-0 flex items-center justify-center z-50 pointer-events-none p-4">
             <motion.div
-              initial={{ opacity: 0, scale: 0.95, y: 20 }}
+              initial={{ opacity: 0, scale: 0.96, y: 12 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.95, y: 20 }}
-              transition={{ type: 'spring', damping: 25, stiffness: 300 }}
+              exit={{ opacity: 0, scale: 0.96, y: 12 }}
+              transition={{ type: 'spring', damping: 28, stiffness: 320 }}
               className={`w-full ${sizeClasses[size]} pointer-events-auto`}
             >
-              <div className="glass-card rounded-[24px] overflow-hidden border border-outline-variant/30 shadow-2xl">
-                <div className="px-6 py-4 border-b border-outline-variant/30 flex justify-between items-center bg-surface-container/50">
-                  <h3 className="font-headline-sm text-headline-sm text-on-surface">{title}</h3>
+              <div className="bg-surface rounded-[20px] overflow-hidden border border-outline shadow-[0_24px_48px_-16px_rgba(0,0,0,0.25)]">
+                <div className="px-6 py-4 border-b border-outline-variant flex justify-between items-center">
+                  <h3 className="font-headline-sm text-on-surface font-semibold">{title}</h3>
                   <button 
                     onClick={onClose}
                     className="p-2 hover:bg-surface-container-high rounded-full transition-colors text-on-surface-variant hover:text-on-surface flex items-center justify-center"

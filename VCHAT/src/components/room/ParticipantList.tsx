@@ -39,7 +39,7 @@ export const ParticipantList: React.FC = () => {
         {sortedParticipants.map(participant => (
           <div key={participant.userId} className="flex items-center justify-between p-3 rounded-xl hover:bg-surface-container-high transition-colors group">
             <div className="flex items-center gap-3">
-              <div className="w-8 h-8 rounded-full bg-gradient-to-br from-primary to-tertiary flex items-center justify-center text-on-primary font-bold text-sm">
+              <div className="w-8 h-8 rounded-full bg-primary flex items-center justify-center text-on-primary font-bold text-sm">
                 {participant.username.charAt(0).toUpperCase()}
               </div>
               <div className="flex flex-col">

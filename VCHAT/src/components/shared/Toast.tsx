@@ -42,10 +42,10 @@ export const ToastProvider = ({ children }: { children: ReactNode }) => {
               initial={{ opacity: 0, y: 20, scale: 0.9 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, scale: 0.9, transition: { duration: 0.2 } }}
-              className={`min-w-[300px] p-4 rounded-xl shadow-xl flex items-center gap-3 border backdrop-blur-md
-                ${toast.type === 'success' ? 'bg-green-500/10 border-green-500/30 text-green-400' : ''}
-                ${toast.type === 'error' ? 'bg-error/10 border-error/30 text-error' : ''}
-                ${toast.type === 'info' ? 'bg-primary/10 border-primary/30 text-primary' : ''}
+              className={`min-w-[300px] p-4 rounded-2xl shadow-[0_12px_32px_-8px_rgba(0,0,0,0.25)] flex items-center gap-3 border
+                ${toast.type === 'success' ? 'bg-surface border-tertiary/30 text-tertiary' : ''}
+                ${toast.type === 'error' ? 'bg-surface border-error/30 text-error' : ''}
+                ${toast.type === 'info' ? 'bg-surface border-primary/30 text-primary' : ''}
               `}
             >
               <span className="material-symbols-outlined text-[20px]">

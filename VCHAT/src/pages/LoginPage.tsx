@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { motion } from 'framer-motion';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { GlassCard } from '../components/shared/GlassCard';
 import { Input } from '../components/shared/Input';
@@ -37,25 +36,23 @@ export const LoginPage: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen relative flex flex-col justify-center items-center overflow-x-hidden pt-20">
-      {/* Background blobs */}
+    <div className="min-h-screen bg-frame p-2 md:p-4 flex flex-col font-body-md">
+      <div className="flex-1 bg-background text-on-surface rounded-[32px] overflow-hidden relative flex flex-col justify-center items-center shadow-2xl">
       <div className="fixed inset-0 dot-grid opacity-30 pointer-events-none" />
-      <motion.div 
-        animate={{ y: [0, -20, 0], rotate: [0, 2, 0] }}
-        transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
-        className="fixed top-[-10%] left-[-10%] w-[40%] h-[40%] bg-primary/10 rounded-full blur-[120px]" 
-      />
       
       <main className="relative z-10 w-full max-w-[480px] px-6">
         <div className="text-center mb-10">
-          <h1 className="font-display-lg text-display-lg text-primary tracking-tighter mb-2">VWatch</h1>
-          <p className="font-label-mono text-label-mono text-on-surface-variant uppercase tracking-widest">Real-time Cinematic Synchronization</p>
+          <Link to="/" className="inline-flex items-center gap-2.5 mb-3">
+            <span className="w-8 h-8 rounded-lg bg-primary flex items-center justify-center text-on-primary font-bold text-lg">V</span>
+            <span className="font-display-lg text-[28px] text-on-surface tracking-tight">VWatch</span>
+          </Link>
+          <p className="font-label-mono text-[11px] text-on-surface-variant uppercase tracking-widest">Real-time Cinematic Synchronization</p>
         </div>
 
-        <GlassCard withLuminousBorder className="p-8 md:p-10">
+        <GlassCard className="p-8 md:p-10">
           <div className="mb-8">
-            <h2 className="font-headline-sm text-headline-sm text-on-surface mb-1">Welcome back</h2>
-            <p className="font-body-md text-on-surface-variant">Enter your credentials to access your room</p>
+            <h2 className="font-headline-sm text-xl text-on-surface mb-1 font-semibold">Welcome back</h2>
+            <p className="font-body-md text-on-surface-variant text-sm">Enter your credentials to access your room</p>
           </div>
 
           <form onSubmit={handleLogin} className="space-y-6">
@@ -83,13 +80,13 @@ export const LoginPage: React.FC = () => {
           </form>
           
           <div className="mt-8 text-center">
-             <p className="font-body-md text-on-surface-variant">
+             <p className="font-body-md text-on-surface-variant text-sm">
                  Don't have an account? 
-                 <Link to="/register" state={location.state} className="text-primary font-bold hover:text-tertiary transition-colors ml-1">Sign up</Link>
+                 <Link to="/register" state={location.state} className="text-primary font-bold hover:underline transition-colors ml-1">Sign up</Link>
              </p>
           </div>
         </GlassCard>
-      </main>
+      </div>
     </div>
   );
 };

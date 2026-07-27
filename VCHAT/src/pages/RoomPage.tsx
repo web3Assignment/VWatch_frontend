@@ -73,11 +73,11 @@ export const RoomPage: React.FC = () => {
     <div className="min-h-screen lg:h-screen lg:max-h-screen flex flex-col pt-16 overflow-y-auto lg:overflow-hidden">
       <Navbar />
       
-      {/* Room Toolbar */}
-      <div className="bg-surface-container border-b border-outline-variant/30 px-4 md:px-6 py-2.5 flex flex-wrap items-center justify-between gap-3 z-10 flex-shrink-0">
+      {/* Room Toolbar — frame-chrome treatment */}
+      <div className="bg-frame text-cream-on-frame px-4 md:px-6 py-2.5 flex flex-wrap items-center justify-between gap-3 z-10 flex-shrink-0">
         <div className="flex items-center gap-3">
-           <h1 className="font-headline-sm text-base md:text-lg text-on-surface">{room.name}</h1>
-           <span className="font-label-mono text-[10px] md:text-xs text-on-surface-variant bg-surface-container-high px-2 py-0.5 rounded">ID: {room.id}</span>
+           <h1 className="font-headline-sm text-base md:text-lg text-cream-on-frame">{room.name}</h1>
+           <span className="font-label-mono text-[10px] md:text-xs text-cream-on-frame/50 bg-white/[0.07] px-2 py-0.5 rounded">ID: {room.id}</span>
            
            {/* Assigned Role Badge */}
            <div className="flex items-center gap-2">
@@ -86,20 +86,23 @@ export const RoomPage: React.FC = () => {
         </div>
         
         <div className="flex items-center gap-2">
-          <Button variant="ghost" icon={<span className="material-symbols-outlined text-sm">link</span>} onClick={handleCopyLink}>
-             <span className="hidden sm:inline">Copy Link</span>
-          </Button>
+          <button onClick={handleCopyLink} className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-cream-on-frame/60 hover:text-cream-on-frame hover:bg-white/[0.07] transition-colors font-label-mono text-xs">
+            <span className="material-symbols-outlined text-sm">link</span>
+            <span className="hidden sm:inline">Copy Link</span>
+          </button>
           
           {(currentUserRole === Role.HOST || currentUserRole === Role.MODERATOR) && (
-            <Button variant="outline" onClick={() => setIsChangeVideoOpen(true)} icon={<span className="material-symbols-outlined text-sm">movie</span>}>
+            <button onClick={() => setIsChangeVideoOpen(true)} className="flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-white/10 text-cream-on-frame/70 hover:text-cream-on-frame hover:bg-white/[0.07] transition-colors font-label-mono text-xs">
+              <span className="material-symbols-outlined text-sm">movie</span>
               <span className="hidden sm:inline">Change Video</span>
-            </Button>
+            </button>
           )}
 
           {currentUserRole === Role.HOST && (
-            <Button variant="outline" onClick={() => setIsRoleModalOpen(true)} icon={<span className="material-symbols-outlined text-sm">manage_accounts</span>}>
+            <button onClick={() => setIsRoleModalOpen(true)} className="flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-white/10 text-cream-on-frame/70 hover:text-cream-on-frame hover:bg-white/[0.07] transition-colors font-label-mono text-xs">
+              <span className="material-symbols-outlined text-sm">manage_accounts</span>
               <span className="hidden sm:inline">Roles</span>
-            </Button>
+            </button>
           )}
           
           <Button variant="danger" onClick={() => navigate('/dashboard')} icon={<span className="material-symbols-outlined text-sm">logout</span>}>
@@ -112,7 +115,7 @@ export const RoomPage: React.FC = () => {
       <div className="flex-1 flex flex-col lg:flex-row bg-background min-h-0">
          {/* Video Area (left side) */}
          <div className="w-full lg:flex-[3] flex flex-col p-3 md:p-6 lg:min-h-0 lg:overflow-y-auto custom-scrollbar flex-shrink-0">
-           <div className="w-full rounded-[20px] md:rounded-[24px] flex flex-col items-center justify-start bg-surface-container/20 border border-outline-variant/20 relative p-3 md:p-6">
+           <div className="w-full rounded-[20px] flex flex-col items-center justify-start bg-surface-container/20 border border-outline relative p-3 md:p-6">
              <FloatingReactions reactions={reactions} onRemove={removeReaction} />
              <YouTubeWebsite
                onChangeVideoClick={() => setIsChangeVideoOpen(true)}
@@ -122,7 +125,7 @@ export const RoomPage: React.FC = () => {
          </div>
          
          {/* Sidebar (right side) */}
-         <div className="w-full lg:w-[380px] xl:w-[400px] border-t lg:border-t-0 lg:border-l border-outline-variant/30 flex flex-col p-4 md:p-6 gap-4 h-auto lg:h-full lg:min-h-0 overflow-hidden flex-shrink-0">
+         <div className="w-full lg:w-[380px] xl:w-[400px] border-t lg:border-t-0 lg:border-l border-outline flex flex-col p-4 md:p-6 gap-4 h-auto lg:h-full lg:min-h-0 overflow-hidden flex-shrink-0">
             <div className="h-[200px] lg:h-[30%] lg:min-h-[160px] lg:max-h-[220px] flex flex-col min-h-0 flex-shrink-0">
                <ParticipantList />
             </div>
@@ -136,7 +139,7 @@ export const RoomPage: React.FC = () => {
       {/* Mobile Floating Chatbot Trigger Button */}
       <button
         onClick={() => setIsMobileChatOpen(!isMobileChatOpen)}
-        className="fixed bottom-6 right-6 z-50 lg:hidden flex items-center gap-2 bg-gradient-to-r from-primary to-tertiary text-on-primary px-4 py-3.5 rounded-full shadow-2xl hover:scale-105 active:scale-95 transition-all duration-200 border border-white/20"
+        className="fixed bottom-6 right-6 z-50 lg:hidden flex items-center gap-2 bg-primary text-on-primary px-4 py-3.5 rounded-full shadow-[0_8px_24px_-8px_rgba(217,134,47,0.5)] hover:scale-105 active:scale-95 transition-all duration-200 border border-primary/20"
         title="Open Room Chat"
       >
         <MessageSquare className="w-5 h-5" />
@@ -145,8 +148,8 @@ export const RoomPage: React.FC = () => {
 
       {/* Mobile Floating Chat Overlay Drawer */}
       {isMobileChatOpen && (
-        <div className="fixed inset-x-4 top-20 bottom-20 z-50 lg:hidden rounded-[24px] shadow-2xl overflow-hidden border border-outline-variant/40 bg-surface/95 backdrop-blur-2xl flex flex-col animate-in slide-in-from-bottom-5 duration-200">
-          <div className="p-3.5 border-b border-outline-variant/30 bg-surface-container/80 flex items-center justify-between flex-shrink-0">
+        <div className="fixed inset-x-4 top-20 bottom-20 z-50 lg:hidden rounded-[20px] shadow-2xl overflow-hidden border border-outline bg-surface/95 backdrop-blur-xl flex flex-col animate-in slide-in-from-bottom-5 duration-200">
+          <div className="p-3.5 border-b border-outline bg-surface-container/80 flex items-center justify-between flex-shrink-0">
             <h3 className="font-headline-sm text-sm text-on-surface flex items-center gap-2">
               <MessageSquare className="w-4 h-4 text-primary" /> Live Room Chat
             </h3>

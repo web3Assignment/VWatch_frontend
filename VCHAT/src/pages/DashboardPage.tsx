@@ -46,15 +46,16 @@ export const DashboardPage: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-background text-on-surface pt-20">
+    <div className="min-h-screen bg-frame p-2 md:p-4 flex flex-col font-body-md">
+      <div className="flex-1 bg-background text-on-surface rounded-[32px] overflow-hidden flex flex-col shadow-2xl relative">
       <Navbar />
       
       <main className="flex-1 max-w-7xl mx-auto px-6 lg:px-10 py-10 w-full">
         {/* Header */}
         <header className="mb-10 flex flex-col md:flex-row md:items-end justify-between gap-6">
           <div>
-            <span className="font-label-caps text-xs text-primary uppercase tracking-widest">Dashboard Overview</span>
-            <h1 className="font-display-lg text-3xl md:text-4xl text-on-surface mt-1">Welcome back, {user?.username || 'User'}</h1>
+            <span className="font-label-caps text-[11px] text-primary uppercase tracking-[0.15em]">Dashboard Overview</span>
+            <h1 className="font-display-lg text-3xl md:text-4xl text-on-surface mt-1 tracking-tight">Welcome back, {user?.username || 'User'}</h1>
             <p className="font-body-md text-on-surface-variant">Manage your watch parties, connections, and live sync sessions</p>
           </div>
           <div className="flex gap-3">
@@ -67,40 +68,8 @@ export const DashboardPage: React.FC = () => {
           </div>
         </header>
 
-        {/* Stats Summary Bento Grid */}
-        <section className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
-          <GlassCard className="p-6 flex items-center justify-between">
-            <div>
-              <p className="font-label-caps text-[11px] text-on-surface-variant uppercase tracking-wider mb-1">Active Rooms</p>
-              <h3 className="font-headline-sm text-3xl text-on-surface font-bold">{rooms.length}</h3>
-            </div>
-            <div className="w-12 h-12 rounded-xl bg-primary/10 border border-primary/20 flex items-center justify-center text-primary">
-              <span className="material-symbols-outlined text-2xl">meeting_room</span>
-            </div>
-          </GlassCard>
 
-          <GlassCard className="p-6 flex items-center justify-between">
-            <div>
-              <p className="font-label-caps text-[11px] text-on-surface-variant uppercase tracking-wider mb-1">Avg Sync Latency</p>
-              <h3 className="font-headline-sm text-3xl text-tertiary font-bold">14 ms</h3>
-            </div>
-            <div className="w-12 h-12 rounded-xl bg-tertiary/10 border border-tertiary/20 flex items-center justify-center text-tertiary">
-              <span className="material-symbols-outlined text-2xl">bolt</span>
-            </div>
-          </GlassCard>
-
-          <GlassCard className="p-6 flex items-center justify-between">
-            <div>
-              <p className="font-label-caps text-[11px] text-on-surface-variant uppercase tracking-wider mb-1">Watch Time</p>
-              <h3 className="font-headline-sm text-3xl text-on-surface font-bold">28.5 hrs</h3>
-            </div>
-            <div className="w-12 h-12 rounded-xl bg-purple-500/10 border border-purple-500/20 flex items-center justify-center text-purple-400">
-              <span className="material-symbols-outlined text-2xl">schedule</span>
-            </div>
-          </GlassCard>
-        </section>
-
-        {/* Room Filter & Search Bar */}
+        {/* Room Filter & Search */}
         <section className="mb-8 flex flex-col sm:flex-row justify-between items-center gap-4">
           <h2 className="font-headline-sm text-xl text-on-surface flex items-center gap-2">
             <span className="material-symbols-outlined text-primary">grid_view</span>
@@ -112,7 +81,7 @@ export const DashboardPage: React.FC = () => {
               placeholder="Search rooms..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full bg-surface-container-low border border-outline-variant/30 rounded-xl pl-10 pr-4 py-2.5 text-sm text-on-surface placeholder:text-on-surface-variant/60 focus:outline-none focus:border-primary transition-colors font-label-mono"
+              className="w-full bg-surface-container-low border border-outline rounded-xl pl-10 pr-4 py-2.5 text-sm text-on-surface placeholder:text-on-surface-variant/50 focus:outline-none focus:border-primary transition-colors font-label-mono"
             />
             <span className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-[18px]">
               search
@@ -133,7 +102,7 @@ export const DashboardPage: React.FC = () => {
               ))}
             </div>
           ) : (
-            <div className="text-center py-16 bg-surface-container-low rounded-[24px] border border-outline-variant/20 border-dashed">
+            <div className="text-center py-16 bg-surface-container-low rounded-[20px] border border-outline border-dashed">
               <span className="material-symbols-outlined text-[48px] text-on-surface-variant/40 mb-4">inbox</span>
               <p className="font-body-md text-on-surface-variant mb-4">No rooms found.</p>
               <Button variant="outline" onClick={() => setIsCreateOpen(true)}>Create a new room</Button>
@@ -142,6 +111,7 @@ export const DashboardPage: React.FC = () => {
         </section>
       </main>
 
+      </div>
       <CreateRoomModal isOpen={isCreateOpen} onClose={() => setIsCreateOpen(false)} />
       <JoinRoomModal isOpen={isJoinOpen} onClose={() => setIsJoinOpen(false)} />
     </div>

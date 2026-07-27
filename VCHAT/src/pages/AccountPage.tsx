@@ -11,15 +11,16 @@ export const AccountPage: React.FC = () => {
   const { user, logout } = useAuth();
 
   return (
-    <div className="min-h-screen flex flex-col bg-background text-on-surface pt-20">
+    <div className="min-h-screen bg-frame p-2 md:p-4 flex flex-col font-body-md">
+      <div className="flex-1 bg-background text-on-surface rounded-[32px] overflow-hidden flex flex-col shadow-2xl relative">
       <Navbar />
 
       <main className="flex-1 max-w-4xl mx-auto px-6 lg:px-10 py-12 w-full">
         {/* Header */}
         <div className="mb-10 text-center md:text-left flex flex-col md:flex-row justify-between md:items-end gap-6">
           <div>
-            <span className="font-label-caps text-xs text-primary uppercase tracking-widest">Account Profile</span>
-            <h1 className="font-display-lg text-4xl text-on-surface mt-1">User Account Details</h1>
+            <span className="font-label-caps text-[11px] text-primary uppercase tracking-[0.15em]">Account Profile</span>
+            <h1 className="font-display-lg text-4xl text-on-surface mt-1 tracking-tight">User Account Details</h1>
             <p className="font-body-md text-on-surface-variant">
               Manage your personal credentials, session security, and watch party host rights.
             </p>
@@ -32,8 +33,8 @@ export const AccountPage: React.FC = () => {
 
         {/* Profile Card */}
         <GlassCard withLuminousBorder className="p-8 mb-10 space-y-8">
-          <div className="flex flex-col sm:flex-row items-center gap-6 pb-6 border-b border-outline-variant/30">
-            <div className="w-20 h-20 rounded-full bg-gradient-to-tr from-primary to-tertiary flex items-center justify-center text-on-primary font-bold text-3xl shadow-xl border-2 border-surface">
+          <div className="flex flex-col sm:flex-row items-center gap-6 pb-6 border-b border-outline-variant">
+            <div className="w-20 h-20 rounded-full bg-primary flex items-center justify-center text-on-primary font-bold text-3xl shadow-xl border-2 border-surface">
               {user?.username?.charAt(0).toUpperCase() || 'U'}
             </div>
 
@@ -52,44 +53,44 @@ export const AccountPage: React.FC = () => {
 
           {/* Account Info Details Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div className="p-4 bg-surface-container-low rounded-2xl border border-outline-variant/30 space-y-1">
+            <div className="p-4 bg-surface-container-low rounded-2xl border border-outline space-y-1">
               <p className="font-label-caps text-[10px] text-on-surface-variant uppercase tracking-wider flex items-center gap-1.5">
                 <User className="w-3.5 h-3.5 text-primary" /> USERNAME
               </p>
               <p className="font-label-mono text-sm text-on-surface font-bold">{user?.username || 'Not set'}</p>
             </div>
 
-            <div className="p-4 bg-surface-container-low rounded-2xl border border-outline-variant/30 space-y-1">
+            <div className="p-4 bg-surface-container-low rounded-2xl border border-outline space-y-1">
               <p className="font-label-caps text-[10px] text-on-surface-variant uppercase tracking-wider flex items-center gap-1.5">
                 <Mail className="w-3.5 h-3.5 text-primary" /> EMAIL ADDRESS
               </p>
               <p className="font-label-mono text-sm text-on-surface font-bold">{user?.emailAddress || user?.email || 'user@example.com'}</p>
             </div>
 
-            <div className="p-4 bg-surface-container-low rounded-2xl border border-outline-variant/30 space-y-1">
+            <div className="p-4 bg-surface-container-low rounded-2xl border border-outline space-y-1">
               <p className="font-label-caps text-[10px] text-on-surface-variant uppercase tracking-wider flex items-center gap-1.5">
                 <Key className="w-3.5 h-3.5 text-primary" /> ACCOUNT ID (UUID)
               </p>
               <p className="font-label-mono text-xs text-on-surface-variant font-bold truncate">{user?.id || 'u-1001'}</p>
             </div>
 
-            <div className="p-4 bg-surface-container-low rounded-2xl border border-outline-variant/30 space-y-1">
+            <div className="p-4 bg-surface-container-low rounded-2xl border border-outline space-y-1">
               <p className="font-label-caps text-[10px] text-on-surface-variant uppercase tracking-wider flex items-center gap-1.5">
                 <Calendar className="w-3.5 h-3.5 text-primary" /> ACCOUNT STATUS
               </p>
-              <p className="font-label-mono text-xs text-green-500 font-bold flex items-center gap-1.5 mt-0.5">
+              <p className="font-label-mono text-xs text-tertiary font-bold flex items-center gap-1.5 mt-0.5">
                 <CheckCircle className="w-3.5 h-3.5" /> ACTIVE SESSION
               </p>
             </div>
           </div>
 
-          <div className="pt-6 border-t border-outline-variant/30 flex justify-end">
+          <div className="pt-6 border-t border-outline-variant flex justify-end">
             <Button variant="danger" onClick={logout}>Sign Out</Button>
           </div>
         </GlassCard>
       </main>
 
-      <Footer />
+      </div>
     </div>
   );
 };

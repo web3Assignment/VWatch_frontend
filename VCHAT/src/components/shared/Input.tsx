@@ -23,7 +23,7 @@ export const Input: React.FC<InputProps> = ({
       )}
       <div className="relative group">
         <input
-          className={`w-full bg-surface-container-low border ${error ? 'border-error' : 'border-outline-variant/30'} rounded-xl px-4 py-3 font-label-mono text-[14px] text-on-surface placeholder:text-outline focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-all duration-300 ${className}`}
+          className={`w-full bg-surface-container-low border ${error ? 'border-error' : 'border-outline'} rounded-xl px-4 py-3 font-label-mono text-[14px] text-on-surface placeholder:text-on-surface-variant/50 focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary transition-all duration-200 ${className}`}
           {...props}
         />
       </div>

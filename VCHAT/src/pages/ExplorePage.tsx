@@ -33,14 +33,15 @@ export const ExplorePage: React.FC = () => {
   );
 
   return (
-    <div className="min-h-screen flex flex-col bg-background text-on-surface pt-20">
+    <div className="min-h-screen bg-frame p-2 md:p-4 flex flex-col font-body-md">
+      <div className="flex-1 bg-background text-on-surface rounded-[32px] overflow-hidden flex flex-col shadow-2xl relative">
       <Navbar />
 
       <main className="flex-1 max-w-7xl mx-auto px-6 lg:px-10 py-12 w-full">
         {/* Header */}
         <div className="mb-10 text-center md:text-left">
-          <span className="font-label-caps text-xs text-primary uppercase tracking-widest">Public Lobbies</span>
-          <h1 className="font-display-lg text-4xl text-on-surface mt-1">Explore Live Watch Parties</h1>
+          <span className="font-label-caps text-[11px] text-primary uppercase tracking-[0.15em]">Public Lobbies</span>
+          <h1 className="font-display-lg text-4xl text-on-surface mt-1 tracking-tight">Explore Live Watch Parties</h1>
           <p className="font-body-md text-on-surface-variant max-w-xl">
             Join public synchronized lobbies created by creators, friends, and media enthusiasts around the world.
           </p>
@@ -54,7 +55,7 @@ export const ExplorePage: React.FC = () => {
               placeholder="Search rooms or hosts..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full bg-surface-container-low border border-outline-variant/30 rounded-full pl-10 pr-4 py-2.5 text-sm text-on-surface placeholder:text-on-surface-variant/60 focus:outline-none focus:border-primary font-label-mono"
+              className="w-full bg-surface-container-low border border-outline rounded-full pl-10 pr-4 py-2.5 text-sm text-on-surface placeholder:text-on-surface-variant/50 focus:outline-none focus:border-primary font-label-mono"
             />
             <span className="material-symbols-outlined absolute left-3.5 top-1/2 -translate-y-1/2 text-on-surface-variant text-[18px]">
               search
@@ -73,16 +74,16 @@ export const ExplorePage: React.FC = () => {
         ) : filteredRooms.length > 0 ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
             {filteredRooms.map(room => (
-              <GlassCard key={room.id} className="p-6 flex flex-col justify-between hover:border-primary/40 transition-colors">
+              <GlassCard key={room.id} className="p-6 flex flex-col justify-between hover:border-primary/30 transition-colors">
                 <div>
                   <div className="flex justify-between items-start mb-4">
                     <span className="text-3xl">🎬</span>
                     <span className={`inline-flex items-center gap-1.5 font-label-caps text-[10px] px-2.5 py-1 rounded-full border ${
                       room.isPrivate
                         ? 'bg-error/10 text-error border-error/30'
-                        : 'bg-green-500/10 text-green-400 border-green-500/30'
+                        : 'bg-tertiary/10 text-tertiary border-tertiary/30'
                     }`}>
-                      <span className={`w-1.5 h-1.5 rounded-full animate-pulse ${room.isPrivate ? 'bg-error' : 'bg-green-500'}`} />
+                      <span className={`w-1.5 h-1.5 rounded-full animate-pulse ${room.isPrivate ? 'bg-error' : 'bg-tertiary'}`} />
                       {room.isPrivate ? 'PRIVATE' : 'PUBLIC'}
                     </span>
                   </div>
@@ -97,7 +98,7 @@ export const ExplorePage: React.FC = () => {
 
                   <div className="flex flex-wrap gap-2 mb-6">
                     {room.participantCount !== undefined && (
-                      <span className="font-label-caps text-[10px] px-2 py-0.5 rounded bg-surface-container-high text-on-surface-variant border border-outline-variant/30">
+                      <span className="font-label-caps text-[10px] px-2 py-0.5 rounded bg-surface-container-high text-on-surface-variant border border-outline">
                         👥 {room.participantCount} watching
                       </span>
                     )}
@@ -118,14 +119,14 @@ export const ExplorePage: React.FC = () => {
             ))}
           </div>
         ) : (
-          <div className="text-center py-20 bg-surface-container-low rounded-[24px] border border-outline-variant/20 border-dashed">
+          <div className="text-center py-20 bg-surface-container-low rounded-[20px] border border-outline border-dashed">
             <span className="material-symbols-outlined text-[48px] text-on-surface-variant/40 mb-4">travel_explore</span>
             <p className="font-body-md text-on-surface-variant">No public rooms found.</p>
           </div>
         )}
       </main>
 
-      <Footer />
+      </div>
     </div>
   );
 };

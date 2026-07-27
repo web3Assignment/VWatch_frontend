@@ -90,7 +90,7 @@ export const ChatPanel: React.FC = () => {
           <button 
             type="submit"
             disabled={!input.trim()}
-            className="absolute right-1 top-1 bottom-1 aspect-square flex items-center justify-center rounded-full bg-primary text-on-primary disabled:opacity-40 hover:bg-tertiary transition-colors"
+            className="absolute right-1 top-1 bottom-1 aspect-square flex items-center justify-center rounded-full bg-primary text-on-primary disabled:opacity-40 hover:brightness-105 transition-all"
           >
             <span className="material-symbols-outlined text-[18px]">send</span>
           </button>
