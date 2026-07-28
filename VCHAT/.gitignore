@@ -27,3 +27,6 @@ dist-ssr
 VWatch_backend/
 
 .env*
+
+# Documentation
+docs/VWatch_Assignment_Submission.md

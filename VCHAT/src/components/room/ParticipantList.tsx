@@ -124,13 +124,6 @@ export const ParticipantList: React.FC<{ onOpenTransferHost?: (userId: string) =
                           <span className="material-symbols-outlined text-xs text-on-surface-variant">group</span>
                           Make Participant
                         </button>
-                        <button 
-                          onClick={() => { assignRole(participant.userId, Role.VIEWER); setOpenMenuId(null); }}
-                          className="w-full text-left px-3 py-1.5 text-xs font-medium hover:bg-surface-container-high transition-colors flex items-center gap-2 text-on-surface"
-                        >
-                          <span className="material-symbols-outlined text-xs text-on-surface-variant">visibility</span>
-                          Make Viewer
-                        </button>
                         {/* Divider */}
                         <div className="my-1 border-t border-outline-variant/40" />
                         {/* Transfer Host option */}
