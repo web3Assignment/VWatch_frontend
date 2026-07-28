@@ -83,7 +83,7 @@ export const ParticipantList: React.FC<{ onOpenTransferHost?: (userId: string) =
           </div>
           
           <div className="flex-1 min-h-0 overflow-y-auto custom-scrollbar p-2 space-y-2">
-            {sortedParticipants.map(participant => (
+            {sortedParticipants.map((participant, index) => (
               <div key={participant.userId} className="flex items-center justify-between p-2.5 rounded-xl hover:bg-black/5 dark:hover:bg-white/5 border-2 border-black/20 dark:border-white/20 transition-all group dark:text-white shadow-xs">
                 <div className="flex items-center gap-3">
                   <div className="w-8 h-8 rounded-full bg-black dark:bg-primary dark:text-black text-white font-bold text-xs flex items-center justify-center shadow-sm">
@@ -108,7 +108,7 @@ export const ParticipantList: React.FC<{ onOpenTransferHost?: (userId: string) =
                       <span className="material-symbols-outlined text-sm">more_vert</span>
                     </button>
                     {openMenuId === participant.userId && (
-                      <div className="absolute right-8 top-0 w-40 bg-surface-container-highest border border-outline-variant/60 rounded-xl shadow-2xl z-50 overflow-hidden py-1">
+                      <div className={`absolute right-8 w-40 bg-surface-container-highest border border-outline-variant/60 rounded-xl shadow-2xl z-50 overflow-hidden py-1 ${index >= sortedParticipants.length - 2 && sortedParticipants.length > 2 ? 'bottom-0' : 'top-0'}`}>
                         {/* Role options */}
                         <button 
                           onClick={() => { assignRole(participant.userId, Role.MODERATOR); setOpenMenuId(null); }}
