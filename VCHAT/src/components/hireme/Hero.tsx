@@ -328,12 +328,10 @@ const SocialIcon: React.FC<{
   label: string;
   children: React.ReactNode;
 }> = ({ href, label, children }) => (
-  <a
-    href={href}
-    target="_blank"
-    rel="noopener noreferrer"
+  <button
+    onClick={() => window.open(href, '_blank', 'noopener,noreferrer')}
     aria-label={label}
-    className="w-10 h-10 rounded-full border flex items-center justify-center transition-all hover:text-primary hover:scale-110 hover:shadow-md"
+    className="w-10 h-10 rounded-full border flex items-center justify-center transition-all hover:text-primary hover:scale-110 hover:shadow-md cursor-pointer"
     style={{
       background: 'var(--surface-container)',
       borderColor: 'var(--outline)',
@@ -341,5 +339,5 @@ const SocialIcon: React.FC<{
     }}
   >
     {children}
-  </a>
+  </button>
 );
