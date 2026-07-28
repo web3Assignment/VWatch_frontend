@@ -72,11 +72,26 @@ class SocketService {
   }
 
   emit(event: string, payload?: unknown): void {
-    console.log(`[Socket Emit] ${event}:`, payload);
+    console.log(`[Socket Emit Request] ${event}:`, payload);
+    
     if (!this.socket) {
+      console.log(`[Socket] Socket instance missing, connecting first...`);
       this.connect();
     }
-    this.socket?.emit(event, payload);
+
+    if (this.socket?.connected) {
+      this.socket.emit(event, payload);
+    } else {
+      console.warn(`[Socket] Not connected yet. Queueing emit for ${event}`);
+      this.socket?.once('connect', () => {
+        console.log(`[Socket] Connected! Sending queued event: ${event}`);
+        this.socket?.emit(event, payload);
+      });
+      // If it wasn't connecting, force a connect
+      if (this.socket && !this.socket.active) {
+          this.socket.connect();
+      }
+    }
   }
 }
 

@@ -6,7 +6,7 @@ import { RoleBadge } from '../shared/RoleBadge';
 
 import { useRoom } from '../../hooks/useRoom';
 
-export const ParticipantList: React.FC = () => {
+export const ParticipantList: React.FC<{ onOpenTransferHost?: (userId: string) => void }> = ({ onOpenTransferHost }) => {
   const { participants, assignRole, selfId, removeParticipant } = useRoom();
   const { user } = useAuth();
   
@@ -130,6 +130,19 @@ export const ParticipantList: React.FC = () => {
                         >
                           <span className="material-symbols-outlined text-xs text-on-surface-variant">visibility</span>
                           Make Viewer
+                        </button>
+                        {/* Divider */}
+                        <div className="my-1 border-t border-outline-variant/40" />
+                        {/* Transfer Host option */}
+                        <button
+                          onClick={() => {
+                            setOpenMenuId(null);
+                            onOpenTransferHost?.(participant.userId);
+                          }}
+                          className="w-full text-left px-3 py-1.5 text-xs font-medium hover:bg-surface-container-high transition-colors flex items-center gap-2 text-on-surface"
+                        >
+                          <span className="material-symbols-outlined text-xs text-tertiary">swap_horiz</span>
+                          Transfer Host
                         </button>
                         {/* Divider */}
                         <div className="my-1 border-t border-outline-variant/40" />

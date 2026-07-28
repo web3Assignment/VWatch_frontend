@@ -175,6 +175,36 @@ export const useRoomStore = create<RoomState>((set, get) => {
     window.dispatchEvent(new CustomEvent('vwatch:kicked'));
   };
 
+  const handleHostTransferred = (payload: any) => {
+    const newHostId = payload?.newHostId;
+    const previousHostId = payload?.previousHostId;
+    const rawList = payload?.participants;
+
+    // Update participant list if server sent it
+    if (Array.isArray(rawList)) {
+      set({ participants: rawList.map(normalizeParticipant) });
+    } else {
+      // Optimistic local update
+      set((state) => ({
+        participants: state.participants.map(p => {
+          if (String(p.userId) === String(newHostId)) return { ...p, role: Role.HOST };
+          if (String(p.userId) === String(previousHostId)) return { ...p, role: Role.PARTICIPANT };
+          return p;
+        })
+      }));
+    }
+
+    // Dispatch so RoomPage can show the right toast per user
+    window.dispatchEvent(new CustomEvent('vwatch:host_transferred', {
+      detail: { newHostId, previousHostId, participants: rawList }
+    }));
+  };
+
+  const handleSocketError = (payload: any) => {
+    const message = payload?.message || 'An error occurred.';
+    window.dispatchEvent(new CustomEvent('vwatch:socket_error', { detail: { message } }));
+  };
+
   const connectAndJoinSocketRoom = (roomId: string) => {
     socketService.connect();
     socketService.emit('join_room', { roomId });
@@ -190,6 +220,8 @@ export const useRoomStore = create<RoomState>((set, get) => {
   socketService.on('chat_message', handleChatMessage);
   socketService.on('reaction', handleReaction);
   socketService.on('kicked', handleKicked);
+  socketService.on('host_transferred', handleHostTransferred);
+  socketService.on('error_event', handleSocketError);
 
   return {
     room: null,
@@ -298,14 +330,7 @@ set({ room: null, participants: [], messages: [], selfId: null, reactions: [] })
     },
 
     transferHost: (newHostId: string) => {
-      set((state) => ({
-        participants: state.participants.map(p => {
-          if (String(p.userId) === String(newHostId)) return { ...p, role: Role.HOST };
-          if (p.role === Role.HOST) return { ...p, role: Role.MODERATOR };
-          return p;
-        })
-      }));
-      socketService.emit('transfer_host', { userId: newHostId, targetUserId: newHostId });
+      socketService.emit('transfer_host', { targetUserId: newHostId });
     }
   };
 });

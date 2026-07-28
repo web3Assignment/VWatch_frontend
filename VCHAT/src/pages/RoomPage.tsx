@@ -12,6 +12,7 @@ import { ChatPanel } from '../components/room/ChatPanel';
 import { SyncTelemetry } from '../components/room/SyncTelemetry';
 import { ChangeVideoModal } from '../components/room/ChangeVideoModal';
 import { RoleManagementModal } from '../components/room/RoleManagementModal';
+import { TransferHostModal } from '../components/room/TransferHostModal';
 import { RoleBadge } from '../components/shared/RoleBadge';
 import { useParticipants } from '../hooks/useParticipants';
 import { useToast } from '../components/shared/Toast';
@@ -30,6 +31,7 @@ export const RoomPage: React.FC = () => {
   
   const [isChangeVideoOpen, setIsChangeVideoOpen] = useState(false);
   const [isRoleModalOpen, setIsRoleModalOpen] = useState(false);
+  const [isTransferHostOpen, setIsTransferHostOpen] = useState(false);
   const [isMobileChatOpen, setIsMobileChatOpen] = useState(false);
 
   useEffect(() => {
@@ -64,6 +66,34 @@ export const RoomPage: React.FC = () => {
     return () => window.removeEventListener('vwatch:kicked', handleKickedEvent);
   }, [navigate, showToast]);
 
+  // Listen for host_transferred — show the right toast per user
+  useEffect(() => {
+    const handleHostTransferred = (e: Event) => {
+      const { newHostId, previousHostId } = (e as CustomEvent).detail || {};
+      const newHostParticipant = participants.find(p => String(p.userId) === String(newHostId));
+      const newHostName = newHostParticipant?.username || 'Someone';
+
+      if (String(selfId) === String(newHostId)) {
+        showToast('You are now the Host! 🎉', 'success');
+      } else if (String(selfId) === String(previousHostId)) {
+        showToast('You transferred host ownership.', 'success');
+      } else {
+        showToast(`${newHostName} is now the Host 👑`, 'success');
+      }
+    };
+    window.addEventListener('vwatch:host_transferred', handleHostTransferred);
+    return () => window.removeEventListener('vwatch:host_transferred', handleHostTransferred);
+  }, [selfId, participants, showToast]);
+
+  // Listen for socket error_event and surface as toast
+  useEffect(() => {
+    const handleSocketError = (e: Event) => {
+      const { message } = (e as CustomEvent).detail || {};
+      showToast(message || 'Something went wrong.', 'error');
+    };
+    window.addEventListener('vwatch:socket_error', handleSocketError);
+    return () => window.removeEventListener('vwatch:socket_error', handleSocketError);
+  }, [showToast]);
 
   const currentUserRole = participants.find(p => String(p.userId) === String(selfId))?.role || Role.VIEWER;
 
@@ -160,7 +190,7 @@ export const RoomPage: React.FC = () => {
          {/* Sidebar (right side) */}
          <div className="w-full lg:w-[380px] xl:w-[420px] border-t lg:border-t-0 lg:border-l border-outline bg-background flex flex-col p-4 md:p-6 gap-6 h-auto lg:h-full lg:min-h-0 overflow-hidden flex-shrink-0 relative">
             <div className="h-[200px] lg:h-[30%] lg:min-h-[180px] lg:max-h-[250px] flex flex-col min-h-0 flex-shrink-0">
-               <ParticipantList />
+               <ParticipantList onOpenTransferHost={() => setIsTransferHostOpen(true)} />
             </div>
             {/* Desktop Only Chat Panel */}
             <div className="hidden lg:flex flex-1 min-h-0 flex-col overflow-hidden">
@@ -205,6 +235,7 @@ export const RoomPage: React.FC = () => {
       {/* Modals */}
       <ChangeVideoModal isOpen={isChangeVideoOpen} onClose={() => setIsChangeVideoOpen(false)} />
       <RoleManagementModal isOpen={isRoleModalOpen} onClose={() => setIsRoleModalOpen(false)} />
+      <TransferHostModal isOpen={isTransferHostOpen} onClose={() => setIsTransferHostOpen(false)} />
     </div>
   );
 };
