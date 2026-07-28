@@ -54,6 +54,17 @@ export const RoomPage: React.FC = () => {
     };
   }, [roomId, joinRoom, leaveRoom, navigate, showToast]);
 
+  // Listen for kicked event dispatched by the store
+  useEffect(() => {
+    const handleKickedEvent = () => {
+      showToast('You have been removed from this room.', 'error');
+      navigate('/dashboard', { replace: true });
+    };
+    window.addEventListener('vwatch:kicked', handleKickedEvent);
+    return () => window.removeEventListener('vwatch:kicked', handleKickedEvent);
+  }, [navigate, showToast]);
+
+
   const currentUserRole = participants.find(p => String(p.userId) === String(selfId))?.role || Role.VIEWER;
 
   const handleCopyLink = () => {

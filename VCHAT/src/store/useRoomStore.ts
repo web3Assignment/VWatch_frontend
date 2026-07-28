@@ -44,6 +44,7 @@ interface RoomState {
   joinRoom: (roomId: string) => Promise<void>;
   leaveRoom: () => void;
   assignRole: (userId: string, role: Role) => void;
+  removeParticipant: (userId: string) => void;
   transferHost: (newHostId: string) => void;
   setPlayerState: (state: Partial<PlayerState>) => void;
   sendEmojiReaction: (emoji: string) => void;
@@ -170,6 +171,8 @@ export const useRoomStore = create<RoomState>((set, get) => {
 
   const handleKicked = () => {
     get().leaveRoom();
+    // Dispatch a custom event so RoomPage can navigate away
+    window.dispatchEvent(new CustomEvent('vwatch:kicked'));
   };
 
   const connectAndJoinSocketRoom = (roomId: string) => {
